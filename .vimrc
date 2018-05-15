@@ -63,9 +63,11 @@ if has("gui_running")
     " set guifont=-*-console-*-*-*--*-*-*-*-*-*-*
     " set guifont=Bitstream\ Vera\ Sans\ Mono\ 12
     " set guifont=ProggyCleanTT\ 12
-    set guifont=Inconsolata\ Medium\ 10
+    " set guifont=Inconsolata\ Medium\ 10
     " set guifont=-Misc-Fixed-Bold-R-Normal--15-120-75-75-C-70-ISO8859-1
-    " set guifont=monospace 11
+    " set guifont=DejaVuSansMono
+    " set guifont=Roboto\ Mono\ Light\ for\ Powerline:h15
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
         
     " Hide the toolbar
     set guioptions-=T
