@@ -192,6 +192,49 @@ set gdefault
 nnoremap <leader><space> :nohlsearch<CR>
 
 "------------------------------------------------------------------------------
+" Spaces / Tabs / Backspace
+"------------------------------------------------------------------------------
+" Number of visual spaces per tab.
+"
+" tabstop is the number of spaces a tab counts for.
+" So, when Vim opens a file and reads a <TAB> character,
+" it uses that many spaces to visually show the <TAB>.
+set tabstop=2
+
+" shiftwidth controls how many columns text is indented with the reindent
+" operations (<< and >>).
+set shiftwidth=2
+
+" Number of spaces in tab when editing
+"
+" softabstop is the number of spaces a tab counts for when editing.
+" So this value is the number of spaces that is inserted when you
+" hit <TAB> and also the number of spaces that are removed when you backspace.
+set softtabstop=2
+
+" Tabs are spaces.
+"
+" expandtab turns <TAB>s into spaces. That's it.
+" So <TAB> just becomes a shortcut for 'insert two spaces'.
+set expandtab
+
+" Have the usual indentation keystrokes still work in visual mode
+" vnoremap <C-T> >
+" vnoremap <C-D> <LT>
+" vmap <Tab> <C-T>
+" vmap <S-Tab> <C-D>
+  
+" Fix visual selection tabbing and shift-tabbing
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" Fix issues with backspace
+set backspace=indent,eol,start
+
+"------------------------------------------------------------------------------
 " Syntax / Lint
 "------------------------------------------------------------------------------
 " Enable syntax highlighting (see: https://stackoverflow.com/a/33380495)
