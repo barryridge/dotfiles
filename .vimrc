@@ -235,6 +235,19 @@ vnoremap <S-Tab> <gv
 set backspace=indent,eol,start
 
 "------------------------------------------------------------------------------
+" Filetype Indentation
+"------------------------------------------------------------------------------
+" Load filetype-specific indent files
+" 
+" This both turns on filetype detection and allows loading of
+" language specific indentation files based on that detection.
+filetype indent on
+
+" ROS launch files
+autocmd FileType launch setlocal shiftwidth=2
+autocmd FileType launch setlocal tabstop=2
+
+"------------------------------------------------------------------------------
 " Syntax / Lint
 "------------------------------------------------------------------------------
 " Enable syntax highlighting (see: https://stackoverflow.com/a/33380495)
