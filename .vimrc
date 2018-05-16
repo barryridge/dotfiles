@@ -49,10 +49,10 @@ call plug#end()
 "------------------------------------------------------------------------------
 " Colors
 "------------------------------------------------------------------------------
-" Set number of colors
+" Set number of colors.
 set t_Co=256
 
-" Set colour scheme (see: http://stevelosh.com/projects/badwolf/)
+" Set colour scheme (see: http://stevelosh.com/projects/badwolf/).
 colorscheme badwolf
 
 "------------------------------------------------------------------------------
@@ -193,11 +193,6 @@ set hlsearch
 " Assume the /g flag on :s substitutions to replace all matches in a line.
 set gdefault
 
-" Turn off search highlight.
-"
-" Re-mapped to ,<space>
-nnoremap <leader><space> :nohlsearch<CR>
-
 "------------------------------------------------------------------------------
 " Spaces / Tabs / Backspace
 "------------------------------------------------------------------------------
@@ -212,7 +207,7 @@ set tabstop=2
 " operations (<< and >>).
 set shiftwidth=2
 
-" Number of spaces in tab when editing
+" Number of spaces in tab when editing.
 "
 " softabstop is the number of spaces a tab counts for when editing.
 " So this value is the number of spaces that is inserted when you
@@ -225,20 +220,20 @@ set softtabstop=2
 " So <TAB> just becomes a shortcut for 'insert two spaces'.
 set expandtab
 
-" Have the usual indentation keystrokes still work in visual mode
+" Have the usual indentation keystrokes still work in visual mode.
 " vnoremap <C-T> >
 " vnoremap <C-D> <LT>
 " vmap <Tab> <C-T>
 " vmap <S-Tab> <C-D>
   
-" Fix visual selection tabbing and shift-tabbing
+" Fix visual selection tabbing and shift-tabbing.
 nnoremap <Tab> >>_
 nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
-" Fix issues with backspace
+" Fix issues with backspace.
 set backspace=indent,eol,start
 
 "------------------------------------------------------------------------------
@@ -261,3 +256,38 @@ autocmd FileType launch setlocal tabstop=2
 if !exists("g:syntax_on")
     syntax enable
 endif
+
+"------------------------------------------------------------------------------
+" Movement
+"------------------------------------------------------------------------------
+" Move vertically by visual line.
+"
+" These two allow us to move around lines visually.
+" So if there's a very long line that gets visually wrapped to two lines,
+" j won't skip over the 'fake' part of the visual line in favor of the next
+" 'real' line.
+nnoremap j gj
+nnoremap k gk
+
+" Highlight last inserted text.
+"
+" This one is pretty cool. It visually selects the block of characters you
+" added last time you were in INSERT mode.
+nnoremap gV `[v`]
+
+"------------------------------------------------------------------------------
+" Leader Shortcuts
+"------------------------------------------------------------------------------
+" Set leader to comma key.
+let mapleader=","
+
+" Edit vimrc/bashrc and load vimrc bindings.
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>eb :vsp ~/.bashrc<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" Save session.
+nnoremap <leader>s :mksession<CR>
+
+" Turn off search highlight.
+nnoremap <leader><space> :nohlsearch<CR>
