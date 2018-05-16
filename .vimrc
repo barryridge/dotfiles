@@ -43,6 +43,12 @@ Plug 'vim-airline/vim-airline'
 " A collection of themes for vim-airline
 Plug 'vim-airline/vim-airline-themes'
 
+" User Interface
+" ----------------
+" Graph your Vim undo tree in style.
+" Mapped to ,u below.
+Plug 'sjl/gundo.vim'
+
 " Deinitialize vim-plug
 call plug#end()
 
@@ -52,7 +58,8 @@ call plug#end()
 " Set number of colors.
 set t_Co=256
 
-" Set colour scheme (see: http://stevelosh.com/projects/badwolf/).
+" Set colour scheme.
+" See: http://stevelosh.com/projects/badwolf/
 colorscheme badwolf
 
 "------------------------------------------------------------------------------
@@ -84,10 +91,8 @@ if has("gui_running")
     " Set character encoding	
     set encoding=utf-8
 
-    " Restore gVim screen size and position
-    "
+    " Restore gVim screen size and position.
     " See: http://vim.wikia.com/wiki/Restore_screen_size_and_position
-    "
     function! ScreenFilename()
         if has('amiga')
           return "s:.vimsize"
@@ -250,9 +255,26 @@ autocmd FileType launch setlocal shiftwidth=2
 autocmd FileType launch setlocal tabstop=2
 
 "------------------------------------------------------------------------------
+" Code Width
+"------------------------------------------------------------------------------
+" Add color column at column 80.
+" See: https://stackoverflow.com/a/3765575
+if exists('+colorcolumn')
+  set colorcolumn=80
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
+
+" Highlight lines that run over 80 columns.
+" See: https://stackoverflow.com/a/3765575
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%>80v.\+/
+
+"------------------------------------------------------------------------------
 " Syntax / Lint
 "------------------------------------------------------------------------------
-" Enable syntax highlighting (see: https://stackoverflow.com/a/33380495)
+" Enable syntax highlighting.
+" See: https://stackoverflow.com/a/33380495
 if !exists("g:syntax_on")
     syntax enable
 endif
@@ -291,3 +313,7 @@ nnoremap <leader>s :mksession<CR>
 
 " Turn off search highlight.
 nnoremap <leader><space> :nohlsearch<CR>
+
+" Toggle Gundo.
+" http://sjl.bitbucket.org/gundo.vim/#installation
+nnoremap <leader>u :GundoToggle<CR>
