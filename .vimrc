@@ -1,5 +1,12 @@
 "==============================================================================
-" Barry Ridge's .vimrc
+" .vimrc
+"
+" Author: Barry Ridge
+" Source: https://github.com/barryridge/dotfiles
+"
+" Disclaimer: Useful snippets and associated comments have been copied from
+" various sources over the years and I no longer recall their precise origins.
+" Credit has been preserved wherever possible.
 "==============================================================================
 
 "------------------------------------------------------------------------------
