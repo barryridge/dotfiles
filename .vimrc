@@ -58,15 +58,6 @@ if has("gui_running")
     set t_AF=^[[38;5;%dm
 
     " Set the X11 font to use
-    " set guifont=-BIZNET-Terminal-Medium-R-Normal--16-140-100-100-C-110-ISO8859-2
-    " set guifont=-misc-console-medium-r-normal--16-160-72-72-c-iso10646-1
-    " set guifont=-*-console-*-*-*--*-*-*-*-*-*-*
-    " set guifont=Bitstream\ Vera\ Sans\ Mono\ 12
-    " set guifont=ProggyCleanTT\ 12
-    " set guifont=Inconsolata\ Medium\ 10
-    " set guifont=-Misc-Fixed-Bold-R-Normal--15-120-75-75-C-70-ISO8859-1
-    " set guifont=DejaVuSansMono
-    " set guifont=Roboto\ Mono\ Light\ for\ Powerline:h15
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
         
     " Hide the toolbar
@@ -147,6 +138,58 @@ if has("gui_running")
     autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif 
 
 endif
+
+"------------------------------------------------------------------------------
+" User Interface
+"------------------------------------------------------------------------------
+" Show relative line numbers.
+set relativenumber
+
+" Show command in bottom bar.
+"
+" showcmd shows the last command entered in the very bottom right of Vim.
+set showcmd
+
+" Highlight current line.
+"
+" cursorline draws a horizontal highlight
+" (or underline, depending on your colorschem)
+" on the line your cursor is currently on.
+set cursorline
+
+" Visual autocomplete for command menu
+"
+" Will provide a graphical menu of all the matches you can cycle through
+" when autocompleting things like filenames.
+set wildmenu
+
+" Redraw only when we need to.
+"
+" Vim loves to redraw the screen during things it probably doesn't need to—
+" like in the middle of macros. This tells Vim not to bother redrawing
+" during these scenarios, leading to faster macros.
+set lazyredraw
+
+" Highlight matching [{()}]
+set showmatch
+
+" Make searches case-insensitive, unless they contain upper-case letters.
+set ignorecase
+set smartcase
+
+" Search as characters are entered.
+set incsearch
+
+" Highlight matches.
+set hlsearch
+
+" Assume the /g flag on :s substitutions to replace all matches in a line.
+set gdefault
+
+" Turn off search highlight.
+"
+" Re-mapped to ,<space>
+nnoremap <leader><space> :nohlsearch<CR>
 
 "------------------------------------------------------------------------------
 " Syntax / Lint
