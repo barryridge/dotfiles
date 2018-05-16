@@ -101,3 +101,16 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+
+# FZF & RipGrep
+# See: http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
+# Hints:
+#   Ctrl + r - search through bash history with fzf
+#   Ctrl + p - edit a file in vim from fzf
+#   mv dir/** - expand a directory with (**) and select from fzf
+#   Alt + c - change directory from fzf - see the update at the bottom for faster search with bfs.
+#   Ctrl + t - insert file from fzf into command
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+bind -x '"\C-p": vim $(fzf);'

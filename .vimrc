@@ -10,6 +10,27 @@
 "==============================================================================
 
 "------------------------------------------------------------------------------
+" Auto Installation
+" See: https://github.com/bag-man/dotfiles/blob/master/vimrc
+"------------------------------------------------------------------------------
+" vim-plug
+if empty(glob("~/.vim/autoload/plug.vim"))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    auto VimEnter * PlugInstall
+endif
+
+" ripgrep in fzf directory
+if !empty(glob("~/.fzf/bin/fzf"))
+    if empty(glob("~/.fzf/bin/rg"))
+      silent !curl -fLo /tmp/rg.tar.gz
+            \ https://github.com/BurntSushi/ripgrep/releases/download/0.4.0/ripgrep-0.4.0-x86_64-unknown-linux-musl.tar.gz
+      silent !tar xzvf /tmp/rg.tar.gz --directory /tmp
+      silent !cp /tmp/ripgrep-0.4.0-x86_64-unknown-linux-musl/rg ~/.fzf/bin/rg
+    endif
+endif
+
+"------------------------------------------------------------------------------
 " Plugins
 "------------------------------------------------------------------------------
 " Initialize vim-plug
@@ -30,7 +51,7 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-colorscheme-switcher'
 
 " Syntax / Lint
-" -----------
+" -------------
 " Asynchronous Lint Engine
 Plug 'w0rp/ale'
 " Markdown Vim Mode
@@ -44,10 +65,23 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " User Interface
-" ----------------
+" --------------
 " Graph your Vim undo tree in style.
-" Mapped to ,u below.
+" Hint: '<leader>u' to open (see leader bindings below).
 Plug 'sjl/gundo.vim'
+
+" File Management
+" ---------------
+" vinegar.vim: Combine with netrw to create a delicious salad dressing
+" Hints: '-' to open, '~' to go home, 'gh' to toggle hidden files.
+Plug 'tpope/vim-vinegar'
+
+" Fuzzy Finding
+" -------------
+" A command-line fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" fzf heart vim
+Plug 'junegunn/fzf.vim'
 
 " Deinitialize vim-plug
 call plug#end()
@@ -317,3 +351,16 @@ nnoremap <leader><space> :nohlsearch<CR>
 " Toggle Gundo.
 " http://sjl.bitbucket.org/gundo.vim/#installation
 nnoremap <leader>u :GundoToggle<CR>
+
+"------------------------------------------------------------------------------
+" Fuzzy Finding
+"------------------------------------------------------------------------------
+" fzf + ripgrep
+" See: http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
+" Hint: ':F' to open.
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+  \ -g "!{.git,node_modules,vendor}/*" '
+
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
