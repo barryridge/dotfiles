@@ -102,7 +102,7 @@ set t_Co=256
 colorscheme badwolf
 
 "------------------------------------------------------------------------------
-" GUI Settings
+" GVim Settings
 "------------------------------------------------------------------------------
 if has("gui_running")
     " Set background color (ANSI)
@@ -196,8 +196,14 @@ endif
 " Set leader to comma key.
 let mapleader=","
 
-" Show relative line numbers.
-set relativenumber
+" Automatic toggling between line number modes.
+" See: https://jeffkreeftmeijer.com/vim-number/
+set number relativenumber
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 " Show command in bottom bar.
 "
