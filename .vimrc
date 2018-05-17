@@ -6,7 +6,8 @@
 "
 " Disclaimer: Useful snippets and associated comments have been copied from
 " various sources over the years and I no longer recall their precise origins.
-" Credit has been preserved wherever possible.
+" Credit has been preserved wherever possible. Much can be attributed to Doug
+" Black's guide: https://dougblack.io/words/a-good-vimrc.html
 "==============================================================================
 
 "------------------------------------------------------------------------------
@@ -59,6 +60,8 @@ Plug 'plasticboy/vim-markdown'
 
 " User Interface
 " --------------
+" super simple vim plugin to show the list of buffers in the command bar
+Plug 'bling/vim-bufferline'
 " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline'
 " A collection of themes for vim-airline
@@ -67,8 +70,8 @@ Plug 'vim-airline/vim-airline-themes'
 " Hint: '<leader>u' to open (see leader bindings below).
 Plug 'sjl/gundo.vim'
 
-" File Management
-" ---------------
+" Navigation
+" ----------
 " vinegar.vim: Combine with netrw to create a delicious salad dressing
 " Hints: '-' to open, '~' to go home, 'gh' to toggle hidden files.
 Plug 'tpope/vim-vinegar'
@@ -240,9 +243,13 @@ set gdefault
 " Turn off search highlight.
 nnoremap <leader><space> :nohlsearch<CR>
 
+" Configure Airline.
+let g:airline_powerline_fonts = 1
+
 " Toggle Gundo.
 " http://sjl.bitbucket.org/gundo.vim/#installation
 nnoremap <leader>u :GundoToggle<CR>
+
 
 "------------------------------------------------------------------------------
 " Spaces / Tabs / Backspace / Etc.
@@ -360,6 +367,15 @@ noremap <leader>d :bp<CR>:bd #<CR>
 " Fly between buffers (toggle buffer list & immediate buffer selection).
 " See: https://stackoverflow.com/a/16084326
 nnoremap gb :ls<CR>:b<Space>
+
+"------------------------------------------------------------------------------
+" Navigation
+"------------------------------------------------------------------------------
+" Change directory to the file being edited.
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" Change local directory to the file being edited.
+" nnoremap <leader>lc :lc %:p:h<CR>
 
 "------------------------------------------------------------------------------
 " Fuzzy Finding
