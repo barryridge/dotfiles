@@ -57,15 +57,12 @@ Plug 'w0rp/ale'
 " Markdown Vim Mode
 Plug 'plasticboy/vim-markdown'
 
-" Status / Tabline
-" ----------------
+" User Interface
+" --------------
 " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline'
 " A collection of themes for vim-airline
 Plug 'vim-airline/vim-airline-themes'
-
-" User Interface
-" --------------
 " Graph your Vim undo tree in style.
 " Hint: '<leader>u' to open (see leader bindings below).
 Plug 'sjl/gundo.vim'
@@ -82,6 +79,11 @@ Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " fzf heart vim
 Plug 'junegunn/fzf.vim'
+
+" Version Control
+" ---------------
+" a Git wrapper so awesome, it should be illegal
+Plug 'tpope/vim-fugitive'
 
 " Deinitialize vim-plug
 call plug#end()
@@ -359,9 +361,6 @@ noremap <leader>d :bp<CR>:bd #<CR>
 " See: https://stackoverflow.com/a/16084326
 nnoremap gb :ls<CR>:b<Space>
 
-" Toggle fzf Buffers.
-nnoremap <leader>b :Buffers<CR>
-
 "------------------------------------------------------------------------------
 " Fuzzy Finding
 "------------------------------------------------------------------------------
@@ -375,6 +374,12 @@ let g:rg_command = '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
+" Toggle fzf file search.
+nnoremap <leader>f :Files<CR>
+
+" Toggle fzf Buffers.
+nnoremap <leader>b :Buffers<CR>
+
 "------------------------------------------------------------------------------
 " Dotfiles / Config / Session / Etc.
 "------------------------------------------------------------------------------
@@ -385,4 +390,3 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " Save session.
 nnoremap <leader>s :mksession<CR>
-
