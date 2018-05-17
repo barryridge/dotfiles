@@ -10,7 +10,7 @@
 "==============================================================================
 
 "------------------------------------------------------------------------------
-" Auto Installation
+" Auto Installations
 " See: https://github.com/bag-man/dotfiles/blob/master/vimrc
 "------------------------------------------------------------------------------
 " vim-plug
@@ -188,6 +188,9 @@ endif
 "------------------------------------------------------------------------------
 " User Interface
 "------------------------------------------------------------------------------
+" Set leader to comma key.
+let mapleader=","
+
 " Show relative line numbers.
 set relativenumber
 
@@ -232,8 +235,15 @@ set hlsearch
 " Assume the /g flag on :s substitutions to replace all matches in a line.
 set gdefault
 
+" Turn off search highlight.
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Toggle Gundo.
+" http://sjl.bitbucket.org/gundo.vim/#installation
+nnoremap <leader>u :GundoToggle<CR>
+
 "------------------------------------------------------------------------------
-" Spaces / Tabs / Backspace
+" Spaces / Tabs / Backspace / Etc.
 "------------------------------------------------------------------------------
 " Number of visual spaces per tab.
 "
@@ -332,25 +342,25 @@ nnoremap k gk
 nnoremap gV `[v`]
 
 "------------------------------------------------------------------------------
-" Leader Shortcuts
+" Buffers
 "------------------------------------------------------------------------------
-" Set leader to comma key.
-let mapleader=","
+" Automatically make unwritten files hidden when switching buffers (suppresses
+" warning).
+set hidden
 
-" Edit vimrc/bashrc and load vimrc bindings.
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>eb :vsp ~/.bashrc<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+" Go to next and previous buffers.
+nnoremap <C-n> :bn<CR>
+nnoremap <C-p> :bp<CR>
 
-" Save session.
-nnoremap <leader>s :mksession<CR>
+" Close current buffer and switch to previous.
+noremap <leader>d :bp<CR>:bd #<CR>
 
-" Turn off search highlight.
-nnoremap <leader><space> :nohlsearch<CR>
+" Fly between buffers (toggle buffer list & immediate buffer selection).
+" See: https://stackoverflow.com/a/16084326
+nnoremap gb :ls<CR>:b<Space>
 
-" Toggle Gundo.
-" http://sjl.bitbucket.org/gundo.vim/#installation
-nnoremap <leader>u :GundoToggle<CR>
+" Toggle fzf Buffers.
+nnoremap <leader>b :Buffers<CR>
 
 "------------------------------------------------------------------------------
 " Fuzzy Finding
@@ -364,3 +374,15 @@ let g:rg_command = '
   \ -g "!{.git,node_modules,vendor}/*" '
 
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+
+"------------------------------------------------------------------------------
+" Dotfiles / Config / Session / Etc.
+"------------------------------------------------------------------------------
+" Edit vimrc/bashrc and load vimrc bindings.
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>eb :vsp ~/.bashrc<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" Save session.
+nnoremap <leader>s :mksession<CR>
+
