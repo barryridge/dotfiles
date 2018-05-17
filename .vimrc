@@ -10,8 +10,16 @@
 " Black's guide: https://dougblack.io/words/a-good-vimrc.html
 "==============================================================================
 
+" Initialization {{{
 "------------------------------------------------------------------------------
-" Auto Installations
+" Set up modeline to allow vimrc to be automatically folded.
+" See: https://dougblack.io/words/a-good-vimrc.html 
+set modeline
+set modelines=1
+
+" }}}
+
+" Auto Installations {{{
 " See: https://github.com/bag-man/dotfiles/blob/master/vimrc
 "------------------------------------------------------------------------------
 " vim-plug
@@ -31,8 +39,9 @@ if !empty(glob("~/.fzf/bin/fzf"))
     endif
 endif
 
-"------------------------------------------------------------------------------
-" Plugins
+" }}}
+
+" Plugins {{{
 "------------------------------------------------------------------------------
 " Initialize vim-plug
 call plug#begin()
@@ -91,15 +100,17 @@ Plug 'tpope/vim-fugitive'
 " Deinitialize vim-plug
 call plug#end()
 
-"------------------------------------------------------------------------------
-" Colors
+" }}}
+
+" Colors {{{
 "------------------------------------------------------------------------------
 " Set colour scheme.
 " See: http://stevelosh.com/projects/badwolf/
 colorscheme badwolf
 
-"------------------------------------------------------------------------------
-" GVim Settings
+" }}}
+
+" GVim Settings {{{
 "------------------------------------------------------------------------------
 if has("gui_running")
     " Set the X11 font to use
@@ -124,7 +135,7 @@ if has("gui_running")
 
     " Restore gVim screen size and position.
     " See: http://vim.wikia.com/wiki/Restore_screen_size_and_position
-    function! ScreenFilename()
+    function! ScreenFilename() abort
         if has('amiga')
           return "s:.vimsize"
         elseif has('win32')
@@ -134,7 +145,7 @@ if has("gui_running")
         endif
     endfunction
 
-    function! ScreenRestore()
+    function! ScreenRestore() abort
         " Restore window size (columns and lines) and position
         " from values stored in vimsize file.
         " Must set font first so columns and lines are based on font size.
@@ -152,7 +163,7 @@ if has("gui_running")
         endif
     endfunction
   
-    function! ScreenSave()
+    function! ScreenSave() abort
         " Save window size and position.
         if has("gui_running") && g:screen_size_restore_pos
             let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
@@ -182,8 +193,9 @@ if has("gui_running")
 
 endif
 
-"------------------------------------------------------------------------------
-" User Interface
+" }}}
+
+" User Interface {{{
 "------------------------------------------------------------------------------
 " Set leader to comma key.
 let mapleader=","
@@ -248,16 +260,16 @@ let g:airline_powerline_fonts = 1
 " http://sjl.bitbucket.org/gundo.vim/#installation
 nnoremap <leader>u :GundoToggle<CR>
 
+" }}}
 
-"------------------------------------------------------------------------------
-" Spaces / Tabs / Backspace / Etc.
+" Spaces / Tabs / Backspace / Etc. {{{
 "------------------------------------------------------------------------------
 " Number of visual spaces per tab.
-"
+" See: https://www.reddit.com/r/vim/wiki/tabstop
 " tabstop is the number of spaces a tab counts for.
 " So, when Vim opens a file and reads a <TAB> character,
 " it uses that many spaces to visually show the <TAB>.
-set tabstop=2
+set tabstop=8
 
 " shiftwidth controls how many columns text is indented with the reindent
 " operations (<< and >>).
@@ -292,8 +304,9 @@ vnoremap <S-Tab> <gv
 " Fix issues with backspace.
 set backspace=indent,eol,start
 
-"------------------------------------------------------------------------------
-" Filetype Indentation
+" }}}
+
+" Filetype Indentation {{{
 "------------------------------------------------------------------------------
 " Load filetype-specific indent files
 " 
@@ -305,8 +318,9 @@ filetype indent on
 autocmd FileType launch setlocal shiftwidth=2
 autocmd FileType launch setlocal tabstop=2
 
-"------------------------------------------------------------------------------
-" Code Width
+" }}}
+
+" Code Width {{{
 "------------------------------------------------------------------------------
 " Add color column at column 80.
 " See: https://stackoverflow.com/a/3765575
@@ -321,8 +335,9 @@ endif
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%>80v.\+/
 
-"------------------------------------------------------------------------------
-" Syntax / Lint
+" }}}
+
+" Syntax / Lint {{{
 "------------------------------------------------------------------------------
 " Enable syntax highlighting.
 " See: https://stackoverflow.com/a/33380495
@@ -330,8 +345,9 @@ if !exists("g:syntax_on")
     syntax enable
 endif
 
-"------------------------------------------------------------------------------
-" Folding
+" }}}
+
+" Folding {{{
 "------------------------------------------------------------------------------
 " Enable folding.
 set foldenable
@@ -351,8 +367,9 @@ set foldnestmax=10
 " Run :help foldmethod to find out what each of those do.
 set foldmethod=indent
 
-"------------------------------------------------------------------------------
-" Movement
+" }}}
+
+" Movement {{{
 "------------------------------------------------------------------------------
 " Move vertically by visual line.
 "
@@ -369,26 +386,28 @@ nnoremap k gk
 " added last time you were in INSERT mode.
 nnoremap gV `[v`]
 
-"------------------------------------------------------------------------------
-" Buffers
+" }}}
+
+" Buffers {{{
 "------------------------------------------------------------------------------
 " Automatically make unwritten files hidden when switching buffers (suppresses
 " warning).
 set hidden
 
 " Go to next and previous buffers.
-nnoremap <C-n> :bn<CR>
-nnoremap <C-p> :bp<CR>
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprevious<CR>
 
-" Close current buffer and switch to previous.
-noremap <leader>d :bp<CR>:bd #<CR>
+" Delete current buffer and switch to previous.
+noremap <leader>d :bprevious<CR>:bdelete #<CR>
 
 " Fly between buffers (toggle buffer list & immediate buffer selection).
 " See: https://stackoverflow.com/a/16084326
 nnoremap gb :ls<CR>:b<Space>
 
-"------------------------------------------------------------------------------
-" Navigation
+" }}}
+
+" Navigation {{{
 "------------------------------------------------------------------------------
 " Change directory to the file being edited.
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
@@ -396,8 +415,9 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Change local directory to the file being edited.
 " nnoremap <leader>lc :lc %:p:h<CR>
 
-"------------------------------------------------------------------------------
-" Fuzzy Finding
+" }}}
+
+" Fuzzy Finding {{{
 "------------------------------------------------------------------------------
 " fzf + ripgrep
 " See: http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
@@ -415,8 +435,9 @@ nnoremap <leader>f :Files<CR>
 " Toggle fzf Buffers.
 nnoremap <leader>b :Buffers<CR>
 
-"------------------------------------------------------------------------------
-" Dotfiles / Config / Session / Etc.
+" }}}
+
+" Dotfiles / Config / Session / Etc. {{{
 "------------------------------------------------------------------------------
 " Edit vimrc/bashrc and load vimrc bindings.
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
@@ -425,3 +446,7 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " Save session.
 nnoremap <leader>s :mksession<CR>
+
+" }}}
+
+" vim:foldmethod=marker:foldlevel=0
