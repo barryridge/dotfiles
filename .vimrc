@@ -94,9 +94,6 @@ call plug#end()
 "------------------------------------------------------------------------------
 " Colors
 "------------------------------------------------------------------------------
-" Set number of colors.
-set t_Co=256
-
 " Set colour scheme.
 " See: http://stevelosh.com/projects/badwolf/
 colorscheme badwolf
@@ -105,11 +102,6 @@ colorscheme badwolf
 " GVim Settings
 "------------------------------------------------------------------------------
 if has("gui_running")
-    " Set background color (ANSI)
-    set t_AB=^[[48;5;%dm
-    " Set foreground color (ANSI)
-    set t_AF=^[[38;5;%dm
-
     " Set the X11 font to use
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
         
@@ -337,6 +329,27 @@ match OverLength /\%>80v.\+/
 if !exists("g:syntax_on")
     syntax enable
 endif
+
+"------------------------------------------------------------------------------
+" Folding
+"------------------------------------------------------------------------------
+" Enable folding.
+set foldenable
+
+" Open most folds by default.
+set foldlevelstart=10
+
+" 10 nested fold max.
+set foldnestmax=10
+
+" Space open/closes folds.
+" nnoremap <space> za
+
+" Fold based on indent level.
+"
+" Other acceptable values are marker, manual, expr, syntax, diff.
+" Run :help foldmethod to find out what each of those do.
+set foldmethod=indent
 
 "------------------------------------------------------------------------------
 " Movement
