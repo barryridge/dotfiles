@@ -105,8 +105,8 @@ call plug#end()
 " Colors {{{
 "------------------------------------------------------------------------------
 " Set colour scheme.
-" See: http://stevelosh.com/projects/badwolf/
-colorscheme badwolf
+" See: https://github.com/morhetz/gruvbox
+colorscheme gruvbox
 
 " }}}
 
