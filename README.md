@@ -7,7 +7,27 @@ further detailed in [this blog post](https://developer.atlassian.com/blog/2016/0
 
 ## Install
 
-### Vim
+### Prerequisites
+
+#### Terminator
+
+To get the latest version of [terminator](https://gnometerminator.blogspot.jp/),
+use a PPA as follows:
+```bash
+$ sudo add-apt-repository ppa:gnome-terminator/nightly-gtk3
+$ sudo apt update
+```
+and
+```bash
+$ sudo apt install terminator
+```
+or
+```bash
+$ sudo apt upgrade
+```
+if terminator is already installed.
+
+#### Vim
 
 In order to make use of [gundo](https://github.com/sjl/gundo.vim), we need a
 version of [Vim](https://www.vim.org/) that includes Python2 and in order to
