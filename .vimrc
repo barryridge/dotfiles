@@ -107,6 +107,8 @@ call plug#end()
 " Set colour scheme.
 " See: https://github.com/morhetz/gruvbox
 colorscheme gruvbox
+" Enable dark mode.
+set bg=dark
 
 " }}}
 
