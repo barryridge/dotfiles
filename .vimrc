@@ -359,7 +359,7 @@ set foldlevelstart=10
 set foldnestmax=10
 
 " Space open/closes folds.
-" nnoremap <space> za
+nnoremap <space> za
 
 " Fold based on indent level.
 "
@@ -372,7 +372,11 @@ set foldmethod=indent
 " Movement {{{
 "------------------------------------------------------------------------------
 " Move vertically by visual line.
-"
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " These two allow us to move around lines visually.
 " So if there's a very long line that gets visually wrapped to two lines,
 " j won't skip over the 'fake' part of the visual line in favor of the next
