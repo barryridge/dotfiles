@@ -102,6 +102,15 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+# Auto-Install Powerline Fonts
+if [ ! -d $HOME/.local/share/fonts ]; then
+    git clone https://github.com/powerline/fonts.git --depth=1
+    cd fonts
+    ./install.sh
+    cd ..
+    rm -rf fonts
+fi
+
 # FZF & RipGrep
 # See: http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
 # Hints:
@@ -111,6 +120,6 @@ fi
 #   Alt + c - change directory from fzf - see the update at the bottom for faster search with bfs.
 #   Ctrl + t - insert file from fzf into command
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore -S --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 bind -x '"\C-p": vim $(fzf);'

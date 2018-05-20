@@ -27,6 +27,15 @@ $ sudo apt upgrade
 ```
 if terminator is already installed.
 
+#### tmux
+
+To get the latest version of [tmux](https://github.com/tmux/tmux/wiki),
+we use the same PPA as above and install as follows:
+```bash
+$ sudo apt install tmux-next
+```
+An alias in `.bash_aliases` maps `tmux` to this version.
+
 #### Vim
 
 In order to make use of [gundo](https://github.com/sjl/gundo.vim), we need a
