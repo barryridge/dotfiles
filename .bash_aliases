@@ -13,4 +13,4 @@
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Map `tmux` to `tmux-next`
-alias tmux='tmux-next'
+alias tmux='/usr/bin/tmux-next'

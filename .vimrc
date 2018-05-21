@@ -116,7 +116,7 @@ set bg=dark
 "------------------------------------------------------------------------------
 if has("gui_running")
     " Set the X11 font to use
-    set guifont=DejaVu\ Sans\ Mono\ 10
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
         
     " Hide the toolbar
     set guioptions-=T
