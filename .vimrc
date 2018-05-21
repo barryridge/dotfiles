@@ -373,12 +373,14 @@ set foldmethod=indent
 
 " Movement {{{
 "------------------------------------------------------------------------------
-" Move vertically by visual line.
+" Switch windows with CTRL + home keys.
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Move vertically by visual line.
+"
 " These two allow us to move around lines visually.
 " So if there's a very long line that gets visually wrapped to two lines,
 " j won't skip over the 'fake' part of the visual line in favor of the next
