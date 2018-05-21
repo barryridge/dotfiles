@@ -432,8 +432,8 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " nnoremap <leader>lc :lc %:p:h<CR>
 
 " Set up mapjings for ranger.vim (the 'francoiscabrol/ranger.vim' version).
-let g:ranger_map_keys = 0
-map <leader>r :Ranger<CR>
+" let g:ranger_map_keys = 0
+" map <leader>r :Ranger<CR>
 
 " Set up mappings for ranger.vim (the 'rafaqz/ranger.vim' version).
 " map <leader>rr :RangerEdit<cr>
@@ -443,6 +443,40 @@ map <leader>r :Ranger<CR>
 " map <leader>ri :RangerInsert<cr>
 " map <leader>ra :RangerAppend<cr>
 " map <leader>rc :set operatorfunc=RangerChangeOperator<cr>g@
+
+" Set up mappings for ranger.
+" See: https://github.com/ranger/ranger/blob/master/examples/vim_file_chooser.vim
+function! RangeChooser()
+    let temp = tempname()
+    " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
+    " with ranger 1.4.2 through 1.5.0 instead.
+    "exec 'silent !ranger --choosefile=' . shellescape(temp)
+    if has("gui_running")
+        exec 'silent !xterm -e ranger --choosefiles=' . shellescape(temp)
+    else
+        exec 'silent !ranger --choosefiles=' . shellescape(temp)
+    endif
+    if !filereadable(temp)
+        redraw!
+        " Nothing to read.
+        return
+    endif
+    let names = readfile(temp)
+    if empty(names)
+        redraw!
+        " Nothing to open.
+        return
+    endif
+    " Edit the first item.
+    exec 'edit ' . fnameescape(names[0])
+    " Add any remaning items to the arg list/buffer list.
+    for name in names[1:]
+        exec 'argadd ' . fnameescape(name)
+    endfor
+    redraw!
+endfunction
+command! -bar RangerChooser call RangeChooser()
+nnoremap <leader>r :<C-U>RangerChooser<CR>
 
 " }}}
 
