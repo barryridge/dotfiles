@@ -36,6 +36,14 @@ $ sudo apt install tmux-next
 ```
 An alias in `.bash_aliases` maps `tmux` to this version.
 
+#### Ranger
+
+To get [Ranger](http://ranger.nongnu.org/) support in vim, it is necessary to
+install Ranger:
+```bash
+sudo apt install ranger
+```
+
 #### Vim
 
 In order to make use of [gundo](https://github.com/sjl/gundo.vim), we need a

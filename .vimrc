@@ -46,10 +46,12 @@ endif
 " Initialize vim-plug
 call plug#begin()
 
-" Basics
-" ------
+" Basics / Bindings
+" -----------------
 " Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
+" pairs of handy bracket mappings
+Plug 'tpope/vim-unimpaired'
 
 " Colors
 " ------
@@ -79,11 +81,17 @@ Plug 'vim-airline/vim-airline-themes'
 " Hint: '<leader>u' to open (see leader bindings below).
 Plug 'sjl/gundo.vim'
 
-" Navigation
-" ----------
+" File Management / Navigation
+" ----------------------------
 " vinegar.vim: Combine with netrw to create a delicious salad dressing
 " Hints: '-' to open, '~' to go home, 'gh' to toggle hidden files.
 Plug 'tpope/vim-vinegar'
+" helpers for UNIX
+Plug 'tpope/vim-eunuch'
+" Ranger integration in vim and neovim  
+Plug 'francoiscabrol/ranger.vim'
+" Ranger file manager for Vim
+" Plug 'rafaqz/ranger.vim'
 
 " Fuzzy Finding
 " -------------
@@ -415,13 +423,26 @@ nnoremap gb :ls<CR>:b<Space>
 
 " }}}
 
-" Navigation {{{
+" File Management / Navigation {{{
 "------------------------------------------------------------------------------
 " Change directory to the file being edited.
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Change local directory to the file being edited.
 " nnoremap <leader>lc :lc %:p:h<CR>
+
+" Set up mapjings for ranger.vim (the 'francoiscabrol/ranger.vim' version).
+let g:ranger_map_keys = 0
+map <leader>r :Ranger<CR>
+
+" Set up mappings for ranger.vim (the 'rafaqz/ranger.vim' version).
+" map <leader>rr :RangerEdit<cr>
+" map <leader>rv :RangerVSplit<cr>
+" map <leader>rs :RangerSplit<cr>
+" map <leader>rt :RangerTab<cr>
+" map <leader>ri :RangerInsert<cr>
+" map <leader>ra :RangerAppend<cr>
+" map <leader>rc :set operatorfunc=RangerChangeOperator<cr>g@
 
 " }}}
 
