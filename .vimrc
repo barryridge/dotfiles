@@ -89,7 +89,7 @@ Plug 'tpope/vim-vinegar'
 " helpers for UNIX
 Plug 'tpope/vim-eunuch'
 " Ranger integration in vim and neovim  
-Plug 'francoiscabrol/ranger.vim'
+" Plug 'francoiscabrol/ranger.vim'
 " Ranger file manager for Vim
 " Plug 'rafaqz/ranger.vim'
 
@@ -104,6 +104,11 @@ Plug 'junegunn/fzf.vim'
 " ---------------
 " a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-fugitive'
+
+" Language / Environment Support
+" ------------------------------
+" Change conda environments in the Vim editor (with Jedi-vim support)
+Plug 'cjrh/vim-conda'
 
 " Deinitialize vim-plug
 call plug#end()

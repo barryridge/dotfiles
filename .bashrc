@@ -123,3 +123,12 @@ fi
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore -S --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 bind -x '"\C-p": vim $(fzf);'
+
+# Auto-Install .anaconda_with_ros_wrapper.bash if anaconda3 is installed.
+# See: https://gist.github.com/StefanFabian/17fa715e783cd2be6a32cd5bbb98acd9
+if [ -d $HOME/anaconda3 ]; then
+  if [ ! -f $HOME/.anaconda_with_ros_wrapper.bash ]; then
+      wget https://gist.githubusercontent.com/StefanFabian/17fa715e783cd2be6a32cd5bbb98acd9/raw/6982a55347a047f5c6baa9a69264550dde3d7c85/.anaconda_with_ros_wrapper.bash
+  fi
+  source .anaconda_with_ros_wrapper.bash
+fi

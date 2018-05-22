@@ -5,6 +5,8 @@ posted by user [StreakyCobra](https://news.ycombinator.com/user?id=StreakyCobra)
 to a [HackerNews thread](https://news.ycombinator.com/item?id=11070797) and
 further detailed in [this blog post](https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/).
 
+The following assumes a Ubuntu 16.04 setup.
+
 ## Install
 
 ### Prerequisites
@@ -68,3 +70,24 @@ $ sudo apt install libruby # Add Ruby support as a bonus
 $ sudo apt install libperl-dev # Add Perl support as a bonus
 $ sudo apt install vim-common=2:8.0.0134-1ubuntu1~ppa1~x vim-gui-common=2:8.0.0134-1ubuntu1~ppa1~x vim-runtime=2:8.0.0134-1ubuntu1~ppa1~x vim-gtk=2:8.0.0134-1ubuntu1~ppa1~x
 ```
+
+#### Python, Pip, Anaconda, Etc.
+
+Ubuntu 16.04 should come with Python 2 and 3 out of the box.
+
+Install pip:
+```bash
+$ sudo apt install -y python-pip
+$ sudo apt install -y python3-pip
+```
+
+Install Anaconda3:
+```bash
+$ wget https://repo.anaconda.com/archive/Anaconda3-5.1.0-Linux-x86_64.sh
+$ bash Anaconda3-5.1.0-Linux-x86_64.sh
+```
+
+If Anaconda3 is present, `.bashrc` auto-installs a handy script called
+[.anaconda_with_ros_wrapper.bash](https://gist.github.com/StefanFabian/17fa715e783cd2be6a32cd5bbb98acd9)
+that allows a ROS-friendly Anaconda path setup to be invoked via
+`release-the-snake` (or de-invoked via `cage-the-snake`).
