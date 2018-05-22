@@ -104,6 +104,8 @@ Plug 'junegunn/fzf.vim'
 " ---------------
 " a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-fugitive'
+" A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks. 
+Plug 'airblade/vim-gitgutter'
 
 " Environments
 " ------------
