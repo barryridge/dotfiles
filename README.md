@@ -104,7 +104,7 @@ If Anaconda3 is present, `.bashrc` auto-installs a handy script called
 that allows a ROS-friendly Anaconda path setup to be invoked via
 `release-the-snake` (or de-invoked via `cage-the-snake`).
 
-#### Linters
+#### Linters and Language Servers
 
 ##### Python
 
@@ -112,4 +112,10 @@ Install Python linters:
 ```bash
 $ pip install --user pep8 flake8 pyflakes isort yapf
 $ pip3 install --user pep8 flake8 pyflakes isort yapf
+```
+
+Install Python language server:
+```bash
+$ pip install --user python-language-server
+$ pip3 install --user python-language-server
 ```

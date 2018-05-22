@@ -105,10 +105,21 @@ Plug 'junegunn/fzf.vim'
 " a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-fugitive'
 
-" Language / Environment Support
-" ------------------------------
+" Environments
+" ------------
 " Change conda environments in the Vim editor (with Jedi-vim support)
 Plug 'cjrh/vim-conda'
+
+" Languages / Autocompletion
+" --------------
+" async language server protocol plugin for vim and neovim 
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+" Sets up vim-lsp for Python. 
+Plug 'ryanolsonx/vim-lsp-python'
 
 " Deinitialize vim-plug
 call plug#end()
