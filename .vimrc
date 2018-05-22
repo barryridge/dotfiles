@@ -77,9 +77,9 @@ Plug 'bling/vim-bufferline'
 Plug 'vim-airline/vim-airline'
 " A collection of themes for vim-airline
 Plug 'vim-airline/vim-airline-themes'
-" Graph your Vim undo tree in style.
+" The ultimate undo history visualizer for VIM
 " Hint: '<leader>u' to open (see leader bindings below).
-Plug 'sjl/gundo.vim'
+Plug 'mbbill/undotree'
 
 " File Management / Navigation
 " ----------------------------
@@ -266,9 +266,8 @@ nnoremap <leader><space> :nohlsearch<CR>
 " Configure Airline.
 let g:airline_powerline_fonts = 1
 
-" Toggle Gundo.
-" http://sjl.bitbucket.org/gundo.vim/#installation
-nnoremap <leader>u :GundoToggle<CR>
+" Toggle Undotree.
+nnoremap <leader>u :UndotreeToggle<CR>
 
 " }}}
 
