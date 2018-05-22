@@ -75,11 +75,23 @@ $ sudo apt install vim-common=2:8.0.0134-1ubuntu1~ppa1~x vim-gui-common=2:8.0.01
 
 Ubuntu 16.04 should come with Python 2 and 3 out of the box.
 
-Install pip:
+`.local/bin` has been added to `$PATH` in `.bashrc`.
+
+##### Pip
+
+Install system versions of pip:
 ```bash
 $ sudo apt install -y python-pip
 $ sudo apt install -y python3-pip
 ```
+
+Then install local versions of pip:
+```bash
+$ pip install --user --upgrade pip
+$ pip3 install --user --upgrade pip3
+```
+
+##### Anaconda
 
 Install Anaconda3:
 ```bash
@@ -91,3 +103,13 @@ If Anaconda3 is present, `.bashrc` auto-installs a handy script called
 [.anaconda_with_ros_wrapper.bash](https://gist.github.com/StefanFabian/17fa715e783cd2be6a32cd5bbb98acd9)
 that allows a ROS-friendly Anaconda path setup to be invoked via
 `release-the-snake` (or de-invoked via `cage-the-snake`).
+
+#### Linters
+
+##### Python
+
+Install Python linters:
+```bash
+$ pip install --user pep8 flake8 pyflakes isort yapf
+$ pip3 install --user pep8 flake8 pyflakes isort yapf
+```

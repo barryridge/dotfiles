@@ -132,3 +132,6 @@ if [ -d $HOME/anaconda3 ]; then
   fi
   source .anaconda_with_ros_wrapper.bash
 fi
+
+# Add local Python binaries to PATH
+export PATH=~/.local/bin:$PATH
