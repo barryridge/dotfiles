@@ -355,11 +355,6 @@ else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
-" Highlight lines that run over 80 columns.
-" See: https://stackoverflow.com/a/3765575
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%>80v.\+/
-
 " }}}
 
 " Syntax / Lint {{{
