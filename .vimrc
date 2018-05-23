@@ -129,6 +129,9 @@ Plug 'airblade/vim-gitgutter'
 " Change conda environments in the Vim editor (with Jedi-vim support)
 Plug 'cjrh/vim-conda'
 
+" Vim plugin for ROS development 
+Plug 'taketwo/vim-ros'
+
 " Sessions
 " --------
 " obsession.vim: continuously updated session files
