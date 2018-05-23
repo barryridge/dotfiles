@@ -89,8 +89,8 @@ Plug 'vim-airline/vim-airline-themes'
 " Hint: '<leader>u' to open (see leader bindings below).
 Plug 'mbbill/undotree'
 
-" File Management / Navigation
-" ----------------------------
+" File Management
+" ---------------
 " vinegar.vim: Combine with netrw to create a delicious salad dressing
 " Hints: '-' to open, '~' to go home, 'gh' to toggle hidden files.
 Plug 'tpope/vim-vinegar'
@@ -121,18 +121,23 @@ Plug 'airblade/vim-gitgutter'
 " Change conda environments in the Vim editor (with Jedi-vim support)
 Plug 'cjrh/vim-conda'
 
-" Languages / Autocompletion
-" --------------------------
+" Sessions
+" --------
+" obsession.vim: continuously updated session files
+Plug 'tpope/vim-obsession'
+
+" File Types
+" ----------
+" vim plugin for tmux.conf
+Plug 'tmux-plugins/vim-tmux'
+
+" Languages
+" ---------
 " async language server protocol plugin for vim and neovim 
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
-" Session
-" -------
-" obsession.vim: continuously updated session files
-Plug 'tpope/vim-obsession'
 
 " Sets up vim-lsp for Python. 
 Plug 'ryanolsonx/vim-lsp-python'
@@ -449,7 +454,7 @@ nnoremap gb :ls<CR>:b<Space>
 
 " }}}
 
-" File Management / Navigation {{{
+" File Management {{{
 "------------------------------------------------------------------------------
 " Change directory to the file being edited.
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
@@ -535,7 +540,7 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " }}}
 
-" Session {{{
+" Sessions {{{
 "------------------------------------------------------------------------------
 " Save session.
 nnoremap <leader>s :mksession<CR>
