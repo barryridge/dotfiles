@@ -126,6 +126,11 @@ Plug 'cjrh/vim-conda'
 " obsession.vim: continuously updated session files
 Plug 'tpope/vim-obsession'
 
+" Terminals
+" ---------
+" Make terminal vim and tmux work better together. 
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
 " File Types
 " ----------
 " vim plugin for tmux.conf
