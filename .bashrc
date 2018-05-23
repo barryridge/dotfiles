@@ -138,5 +138,8 @@ if [ -d $HOME/anaconda3 ]; then
     source .anaconda_with_ros_wrapper.bash
 fi
 
+# Set default editor.
+export EDITOR='vim'
+
 # Add local Python binaries to PATH
 export PATH=~/.local/bin:$PATH
