@@ -147,6 +147,11 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Sets up vim-lsp for Python. 
 Plug 'ryanolsonx/vim-lsp-python'
 
+" Builds
+" ------
+" A vim plugin that provides support for writing LaTeX documents.
+Plug 'lervag/vimtex'
+
 " Deinitialize vim-plug
 call plug#end()
 
@@ -549,6 +554,13 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 "------------------------------------------------------------------------------
 " Save session.
 nnoremap <leader>s :mksession<CR>
+
+" }}}
+
+" Builds {{{
+" -----------------------------------------------------------------------------
+" Set vimtex pdf viewer to mupdf.
+let g:vimtex_view_method = 'mupdf'
 
 " }}}
 

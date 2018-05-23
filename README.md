@@ -119,3 +119,12 @@ Install Python language server:
 $ pip install --user python-language-server
 $ pip3 install --user python-language-server
 ```
+
+#### LaTeX
+
+##### vimtex
+
+Install [mupdf](https://mupdf.com):
+```bash
+$ sudo apt install mupdf
+```
