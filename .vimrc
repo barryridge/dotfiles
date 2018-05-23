@@ -67,6 +67,9 @@ Plug 'xolox/vim-colorscheme-switcher'
 " surround.vim: quoting/parenthesizing made simple
 Plug 'tpope/vim-surround'
 
+" commentary.vim: comment stuff out
+Plug 'tpope/vim-commentary'
+
 " Syntax / Lint
 " -------------
 " Asynchronous Lint Engine
