@@ -70,13 +70,6 @@ Plug 'tpope/vim-surround'
 " commentary.vim: comment stuff out
 Plug 'tpope/vim-commentary'
 
-" Syntax / Lint
-" -------------
-" Asynchronous Lint Engine
-Plug 'w0rp/ale'
-" Markdown Vim Mode
-Plug 'plasticboy/vim-markdown'
-
 " User Interface
 " --------------
 " super simple vim plugin to show the list of buffers in the command bar
@@ -107,6 +100,21 @@ Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " fzf heart vim
 Plug 'junegunn/fzf.vim'
+
+" Syntax / Lint
+" -------------
+" Asynchronous Lint Engine
+Plug 'w0rp/ale'
+" Markdown Vim Mode
+Plug 'plasticboy/vim-markdown'
+
+" Snippets
+" --------
+" UltiSnips - The ultimate snippet solution for Vim.
+Plug 'SirVer/ultisnips'
+
+" vim-snipmate default snippets
+Plug 'honza/vim-snippets'
 
 " Version Control
 " ---------------
@@ -388,16 +396,6 @@ endif
 
 " }}}
 
-" Syntax / Lint {{{
-"------------------------------------------------------------------------------
-" Enable syntax highlighting.
-" See: https://stackoverflow.com/a/33380495
-if !exists("g:syntax_on")
-    syntax enable
-endif
-
-" }}}
-
 " Folding {{{
 "------------------------------------------------------------------------------
 " Enable folding.
@@ -538,6 +536,29 @@ nnoremap <leader>f :Files<CR>
 
 " Toggle fzf Buffers.
 nnoremap <leader>b :Buffers<CR>
+
+" }}}
+
+" Syntax / Lint {{{
+"------------------------------------------------------------------------------
+" Enable syntax highlighting.
+" See: https://stackoverflow.com/a/33380495
+if !exists("g:syntax_on")
+    syntax enable
+endif
+
+" }}}
+
+" Snippets {{{
+"------------------------------------------------------------------------------
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " }}}
 
