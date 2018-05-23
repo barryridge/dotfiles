@@ -62,6 +62,11 @@ Plug 'xolox/vim-misc'
 " Makes it easy to switch between color schemes in Vim
 Plug 'xolox/vim-colorscheme-switcher'
 
+" Editing
+" -------
+" surround.vim: quoting/parenthesizing made simple
+Plug 'tpope/vim-surround'
+
 " Syntax / Lint
 " -------------
 " Asynchronous Lint Engine
@@ -104,7 +109,8 @@ Plug 'junegunn/fzf.vim'
 " ---------------
 " a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-fugitive'
-" A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks. 
+" A Vim plugin which shows a git diff in the gutter (sign column) and
+" stages/undoes hunks. 
 Plug 'airblade/vim-gitgutter'
 
 " Environments
@@ -113,7 +119,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'cjrh/vim-conda'
 
 " Languages / Autocompletion
-" --------------
+" --------------------------
 " async language server protocol plugin for vim and neovim 
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
