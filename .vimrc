@@ -126,6 +126,11 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
+" Session
+" -------
+" obsession.vim: continuously updated session files
+Plug 'tpope/vim-obsession'
+
 " Sets up vim-lsp for Python. 
 Plug 'ryanolsonx/vim-lsp-python'
 
@@ -518,13 +523,17 @@ nnoremap <leader>b :Buffers<CR>
 
 " }}}
 
-" Dotfiles / Config / Session / Etc. {{{
+" Dotfiles {{{
 "------------------------------------------------------------------------------
 " Edit vimrc/bashrc and load vimrc bindings.
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>eb :vsp ~/.bashrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
+" }}}
+
+" Session {{{
+"------------------------------------------------------------------------------
 " Save session.
 nnoremap <leader>s :mksession<CR>
 
