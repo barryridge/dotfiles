@@ -79,16 +79,26 @@ Ubuntu 16.04 should come with Python 2 and 3 out of the box.
 
 ##### Pip
 
-Install system versions of pip:
+Pip 10 has been [known to cause issues](https://github.com/pypa/pip/issues/5221)
+with Debian/Ubuntu systems. The following procedure **should** be robust for
+getting local Python 2/3 pip installs.
+
+First, remove system pip:
 ```bash
-$ sudo apt install -y python-pip
-$ sudo apt install -y python3-pip
+$ sudo apt remove python-pip
+$ sudo apt remove python3-pip
 ```
 
-Then install local versions of pip:
+Then install use `get-pip.py` to install local versions of pip:
 ```bash
-$ pip install --user --upgrade pip
-$ pip3 install --user --upgrade pip3
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ python get-pip.py --user --upgrade pip
+$ python3 get-pip.py --user --upgrade pip
+```
+This might also be helpful:
+```bash
+$ python -m pip install --user --upgrade pip
+$ python3 -m pip install --user --upgrade pip
 ```
 
 ##### Anaconda
