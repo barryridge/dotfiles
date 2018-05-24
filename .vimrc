@@ -46,32 +46,12 @@ endif
 " Initialize vim-plug
 call plug#begin()
 
-" Basics / Bindings
-" -----------------
+" User Interface
+" --------------
 " Defaults everyone can agree on
 Plug 'tpope/vim-sensible'
 " pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
-
-" Colors
-" ------
-" one colorscheme pack to rule them all!
-Plug 'flazz/vim-colorschemes'
-" Miscellaneous auto-load Vim scripts (required by vim-colorscheme-switcher)
-Plug 'xolox/vim-misc'
-" Makes it easy to switch between color schemes in Vim
-Plug 'xolox/vim-colorscheme-switcher'
-
-" Editing
-" -------
-" surround.vim: quoting/parenthesizing made simple
-Plug 'tpope/vim-surround'
-
-" commentary.vim: comment stuff out
-Plug 'tpope/vim-commentary'
-
-" User Interface
-" --------------
 " super simple vim plugin to show the list of buffers in the command bar
 Plug 'bling/vim-bufferline'
 " lean & mean status/tabline for vim that's light as air
@@ -81,6 +61,26 @@ Plug 'vim-airline/vim-airline-themes'
 " The ultimate undo history visualizer for VIM
 " Hint: '<leader>u' to open (see leader bindings below).
 Plug 'mbbill/undotree'
+
+" Colors
+" ------
+" one colorscheme pack to rule them all!
+Plug 'flazz/vim-colorschemes'
+" Miscellaneous auto-load Vim scripts (required by vim-colorscheme-switcher)
+Plug 'xolox/vim-misc'
+" Makes it easy to switch between color schemes in Vim
+Plug 'xolox/vim-colorscheme-switcher'
+" Retro groove color scheme for Vim 
+Plug 'morhetz/gruvbox'
+
+" Editing
+" -------
+" surround.vim: quoting/parenthesizing made simple
+Plug 'tpope/vim-surround'
+" commentary.vim: comment stuff out
+Plug 'tpope/vim-commentary'
+" Distraction-free writing in Vim 
+Plug 'junegunn/goyo.vim'
 
 " File Management
 " ---------------
@@ -94,12 +94,35 @@ Plug 'tpope/vim-eunuch'
 " Ranger file manager for Vim
 " Plug 'rafaqz/ranger.vim'
 
+" File Types
+" ----------
+" vim plugin for tmux.conf
+Plug 'tmux-plugins/vim-tmux'
+
 " Fuzzy Finding
 " -------------
 " A command-line fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " fzf heart vim
 Plug 'junegunn/fzf.vim'
+
+" Version Control
+" ---------------
+" a Git wrapper so awesome, it should be illegal
+Plug 'tpope/vim-fugitive'
+" A Vim plugin which shows a git diff in the gutter (sign column) and
+" stages/undoes hunks. 
+Plug 'airblade/vim-gitgutter'
+
+" Sessions
+" --------
+" obsession.vim: continuously updated session files
+Plug 'tpope/vim-obsession'
+
+" Terminals
+" ---------
+" Make terminal vim and tmux work better together. 
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Syntax / Lint
 " -------------
@@ -112,54 +135,25 @@ Plug 'plasticboy/vim-markdown'
 " --------
 " UltiSnips - The ultimate snippet solution for Vim.
 Plug 'SirVer/ultisnips'
-
 " vim-snipmate default snippets
 Plug 'honza/vim-snippets'
 
-" Version Control
-" ---------------
-" a Git wrapper so awesome, it should be illegal
-Plug 'tpope/vim-fugitive'
-" A Vim plugin which shows a git diff in the gutter (sign column) and
-" stages/undoes hunks. 
-Plug 'airblade/vim-gitgutter'
-
-" Environments
-" ------------
-" Change conda environments in the Vim editor (with Jedi-vim support)
-Plug 'cjrh/vim-conda'
-
-" Vim plugin for ROS development 
-Plug 'taketwo/vim-ros'
-
-" Sessions
-" --------
-" obsession.vim: continuously updated session files
-Plug 'tpope/vim-obsession'
-
-" Terminals
-" ---------
-" Make terminal vim and tmux work better together. 
-Plug 'tmux-plugins/vim-tmux-focus-events'
-
-" File Types
-" ----------
-" vim plugin for tmux.conf
-Plug 'tmux-plugins/vim-tmux'
-
-" Languages
-" ---------
+" LSP / Autocomplete
+" ------------------
 " async language server protocol plugin for vim and neovim 
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
 " Sets up vim-lsp for Python. 
 Plug 'ryanolsonx/vim-lsp-python'
 
-" Builds
-" ------
+" IDE
+" ---
+" Change conda environments in the Vim editor (with Jedi-vim support)
+Plug 'cjrh/vim-conda'
+" Vim plugin for ROS development 
+Plug 'taketwo/vim-ros'
 " A vim plugin that provides support for writing LaTeX documents.
 Plug 'lervag/vimtex'
 
@@ -168,18 +162,151 @@ call plug#end()
 
 " }}}
 
-" Colors {{{
+" User Interface {{{
 "------------------------------------------------------------------------------
-" Set colour scheme.
-" See: https://github.com/morhetz/gruvbox
-colorscheme gruvbox
-" Enable dark mode.
-set bg=dark
 
-" }}}
+" General
+" -------
+" Set leader to comma key.
+let mapleader=","
 
-" GVim Settings {{{
-"------------------------------------------------------------------------------
+" Automatic toggling between line number modes.
+" See: https://jeffkreeftmeijer.com/vim-number/
+set number relativenumber
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
+
+" Show command in bottom bar.
+set showcmd
+
+" Highlight current line.
+set cursorline
+
+" Visual autocomplete for command menu.
+set wildmenu
+
+" Redraw only when we need to.
+set lazyredraw
+
+" Highlight matching [{()}]
+set showmatch
+
+" Make searches case-insensitive, unless they contain upper-case letters.
+set ignorecase
+set smartcase
+
+" Search as characters are entered.
+set incsearch
+
+" Highlight matches.
+set hlsearch
+
+" Assume the /g flag on :s substitutions to replace all matches in a line.
+set gdefault
+
+" Turn off search highlight.
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Plugins
+" -------
+" Toggle Undotree.
+nnoremap <leader>u :UndotreeToggle<CR>
+
+" Configure Airline.
+let g:airline_powerline_fonts = 1
+
+" Tabs / Spaces / Backspace
+" -------------------------
+" Number of visual spaces per tab.
+" See: https://www.reddit.com/r/vim/wiki/tabstop
+set tabstop=8
+
+" shiftwidth controls how many columns text is indented with the reindent
+" operations (<< and >>).
+set shiftwidth=2
+
+" Number of spaces in tab when editing.
+set softtabstop=2
+
+" Tabs are spaces.
+set expandtab
+
+" Have the usual indentation keystrokes still work in visual mode.
+" vnoremap <C-T> >
+" vnoremap <C-D> <LT>
+" vmap <Tab> <C-T>
+" vmap <S-Tab> <C-D>
+  
+" Fix visual selection tabbing and shift-tabbing.
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" Fix issues with backspace.
+set backspace=indent,eol,start
+
+" Buffers
+" -------
+" Automatically make unwritten files hidden when switching buffers (suppresses
+" warning).
+set hidden
+
+" Go to next and previous buffers.
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprevious<CR>
+
+" Delete current buffer and switch to previous.
+noremap <leader>d :bprevious<CR>:bdelete #<CR>
+
+" Fly between buffers (toggle buffer list & immediate buffer selection).
+" See: https://stackoverflow.com/a/16084326
+nnoremap gb :ls<CR>:b<Space>
+
+" Movement
+" --------
+" Switch windows with CTRL + home keys.
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Move vertically by visual line.
+nnoremap j gj
+nnoremap k gk
+
+" Highlight last inserted text.
+nnoremap gV `[v`]
+
+" Folding
+" -------
+" Enable folding.
+set foldenable
+" Open most folds by default.
+set foldlevelstart=10
+" 10 nested fold max.
+set foldnestmax=10
+" Space open/closes folds.
+nnoremap <space> za
+" Fold based on indent level.
+"
+" Other acceptable values are marker, manual, expr, syntax, diff.
+" Run :help foldmethod to find out what each of those do.
+set foldmethod=indent
+
+" Dotfiles
+" --------
+" Edit vimrc/bashrc and load vimrc bindings.
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+nnoremap <leader>eb :vsp ~/.bashrc<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" GUI
+" ---
 if has("gui_running")
     " Set the X11 font to use
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
@@ -261,133 +388,19 @@ if has("gui_running")
 
 endif
 
+
 " }}}
 
-" User Interface {{{
+" Colors {{{
 "------------------------------------------------------------------------------
-" Set leader to comma key.
-let mapleader=","
-
-" Automatic toggling between line number modes.
-" See: https://jeffkreeftmeijer.com/vim-number/
-set number relativenumber
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
-
-" Show command in bottom bar.
-"
-" showcmd shows the last command entered in the very bottom right of Vim.
-set showcmd
-
-" Highlight current line.
-"
-" cursorline draws a horizontal highlight
-" (or underline, depending on your colorschem)
-" on the line your cursor is currently on.
-set cursorline
-
-" Visual autocomplete for command menu
-"
-" Will provide a graphical menu of all the matches you can cycle through
-" when autocompleting things like filenames.
-set wildmenu
-
-" Redraw only when we need to.
-"
-" Vim loves to redraw the screen during things it probably doesn't need to—
-" like in the middle of macros. This tells Vim not to bother redrawing
-" during these scenarios, leading to faster macros.
-set lazyredraw
-
-" Highlight matching [{()}]
-set showmatch
-
-" Make searches case-insensitive, unless they contain upper-case letters.
-set ignorecase
-set smartcase
-
-" Search as characters are entered.
-set incsearch
-
-" Highlight matches.
-set hlsearch
-
-" Assume the /g flag on :s substitutions to replace all matches in a line.
-set gdefault
-
-" Turn off search highlight.
-nnoremap <leader><space> :nohlsearch<CR>
-
-" Configure Airline.
-let g:airline_powerline_fonts = 1
-
-" Toggle Undotree.
-nnoremap <leader>u :UndotreeToggle<CR>
+" Set color scheme to gruvbox.
+colorscheme gruvbox
+" Enable dark mode.
+set bg=dark
 
 " }}}
 
-" Spaces / Tabs / Backspace / Etc. {{{
-"------------------------------------------------------------------------------
-" Number of visual spaces per tab.
-" See: https://www.reddit.com/r/vim/wiki/tabstop
-" tabstop is the number of spaces a tab counts for.
-" So, when Vim opens a file and reads a <TAB> character,
-" it uses that many spaces to visually show the <TAB>.
-set tabstop=8
-
-" shiftwidth controls how many columns text is indented with the reindent
-" operations (<< and >>).
-set shiftwidth=2
-
-" Number of spaces in tab when editing.
-"
-" softabstop is the number of spaces a tab counts for when editing.
-" So this value is the number of spaces that is inserted when you
-" hit <TAB> and also the number of spaces that are removed when you backspace.
-set softtabstop=2
-
-" Tabs are spaces.
-"
-" expandtab turns <TAB>s into spaces. That's it.
-" So <TAB> just becomes a shortcut for 'insert two spaces'.
-set expandtab
-
-" Have the usual indentation keystrokes still work in visual mode.
-" vnoremap <C-T> >
-" vnoremap <C-D> <LT>
-" vmap <Tab> <C-T>
-" vmap <S-Tab> <C-D>
-  
-" Fix visual selection tabbing and shift-tabbing.
-nnoremap <Tab> >>_
-nnoremap <S-Tab> <<_
-inoremap <S-Tab> <C-D>
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
-
-" Fix issues with backspace.
-set backspace=indent,eol,start
-
-" }}}
-
-" Filetype Indentation {{{
-"------------------------------------------------------------------------------
-" Load filetype-specific indent files
-" 
-" This both turns on filetype detection and allows loading of
-" language specific indentation files based on that detection.
-filetype indent on
-
-" ROS launch files
-autocmd FileType launch setlocal shiftwidth=2
-autocmd FileType launch setlocal tabstop=2
-
-" }}}
-
-" Code Width {{{
+" Editing {{{
 "------------------------------------------------------------------------------
 " Add color column at column 80.
 " See: https://stackoverflow.com/a/3765575
@@ -396,72 +409,6 @@ if exists('+colorcolumn')
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
-
-" }}}
-
-" Folding {{{
-"------------------------------------------------------------------------------
-" Enable folding.
-set foldenable
-
-" Open most folds by default.
-set foldlevelstart=10
-
-" 10 nested fold max.
-set foldnestmax=10
-
-" Space open/closes folds.
-nnoremap <space> za
-
-" Fold based on indent level.
-"
-" Other acceptable values are marker, manual, expr, syntax, diff.
-" Run :help foldmethod to find out what each of those do.
-set foldmethod=indent
-
-" }}}
-
-" Movement {{{
-"------------------------------------------------------------------------------
-" Switch windows with CTRL + home keys.
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Move vertically by visual line.
-"
-" These two allow us to move around lines visually.
-" So if there's a very long line that gets visually wrapped to two lines,
-" j won't skip over the 'fake' part of the visual line in favor of the next
-" 'real' line.
-nnoremap j gj
-nnoremap k gk
-
-" Highlight last inserted text.
-"
-" This one is pretty cool. It visually selects the block of characters you
-" added last time you were in INSERT mode.
-nnoremap gV `[v`]
-
-" }}}
-
-" Buffers {{{
-"------------------------------------------------------------------------------
-" Automatically make unwritten files hidden when switching buffers (suppresses
-" warning).
-set hidden
-
-" Go to next and previous buffers.
-nnoremap <C-n> :bnext<CR>
-nnoremap <C-p> :bprevious<CR>
-
-" Delete current buffer and switch to previous.
-noremap <leader>d :bprevious<CR>:bdelete #<CR>
-
-" Fly between buffers (toggle buffer list & immediate buffer selection).
-" See: https://stackoverflow.com/a/16084326
-nnoremap gb :ls<CR>:b<Space>
 
 " }}}
 
@@ -522,6 +469,20 @@ nnoremap <leader>r :<C-U>RangerChooser<CR>
 
 " }}}
 
+" File Types {{{
+"------------------------------------------------------------------------------
+" Load filetype-specific indent files
+" 
+" This both turns on filetype detection and allows loading of
+" language specific indentation files based on that detection.
+filetype indent on
+
+" ROS launch files
+autocmd FileType launch setlocal shiftwidth=2
+autocmd FileType launch setlocal tabstop=2
+
+" }}}
+
 " Fuzzy Finding {{{
 "------------------------------------------------------------------------------
 " fzf + ripgrep
@@ -539,6 +500,23 @@ nnoremap <leader>f :Files<CR>
 
 " Toggle fzf Buffers.
 nnoremap <leader>b :Buffers<CR>
+
+" }}}
+
+" Version Control {{{
+" -----------------------------------------------------------------------------
+
+" }}}
+
+" Sessions {{{
+"------------------------------------------------------------------------------
+" Save session.
+nnoremap <leader>s :mksession<CR>
+
+" }}}
+
+" Terminals {{{
+"------------------------------------------------------------------------------
 
 " }}}
 
@@ -565,23 +543,12 @@ let g:UltiSnipsEditSplit="vertical"
 
 " }}}
 
-" Dotfiles {{{
-"------------------------------------------------------------------------------
-" Edit vimrc/bashrc and load vimrc bindings.
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>eb :vsp ~/.bashrc<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+" LSP / Autocomplete {{{
+" -----------------------------------------------------------------------------
 
 " }}}
 
-" Sessions {{{
-"------------------------------------------------------------------------------
-" Save session.
-nnoremap <leader>s :mksession<CR>
-
-" }}}
-
-" Builds {{{
+" IDE {{{
 " -----------------------------------------------------------------------------
 " Set vimtex pdf viewer to mupdf.
 let g:vimtex_view_method = 'mupdf'
