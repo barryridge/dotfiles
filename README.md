@@ -38,6 +38,11 @@ $ sudo apt install tmux-next
 ```
 An alias in `.bash_aliases` maps `tmux` to this version.
 
+Install `xclip` in order to enable copying from the tmux buffer to the system
+buffer (clipboard). See [here](http://www.rushiagr.com/blog/2016/06/16/everything-you-need-to-know-about-tmux-copy-pasting-ubuntu/)
+
+
+
 #### Ranger
 
 To get [Ranger](http://ranger.nongnu.org/) support in vim, it is necessary to

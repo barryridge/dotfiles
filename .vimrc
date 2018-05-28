@@ -153,7 +153,10 @@ Plug 'ryanolsonx/vim-lsp-python'
 " Change conda environments in the Vim editor (with Jedi-vim support)
 Plug 'cjrh/vim-conda'
 " Vim plugin for ROS development 
-Plug 'taketwo/vim-ros'
+" Note: Only works with vim version built with Py2 support, e.g. vim.nox-py2
+if has('python')
+  Plug 'taketwo/vim-ros'
+endif
 " A vim plugin that provides support for writing LaTeX documents.
 Plug 'lervag/vimtex'
 
@@ -410,7 +413,7 @@ else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
-" Toggle goyo.
+" Toggle Goyo.
 nnoremap <leader>g :Goyo<CR>
 
 " }}}
