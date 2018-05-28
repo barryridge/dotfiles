@@ -52,8 +52,6 @@ call plug#begin()
 Plug 'tpope/vim-sensible'
 " pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
-" super simple vim plugin to show the list of buffers in the command bar
-Plug 'bling/vim-bufferline'
 " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline'
 " A collection of themes for vim-airline
@@ -113,6 +111,8 @@ Plug 'tpope/vim-fugitive'
 " A Vim plugin which shows a git diff in the gutter (sign column) and
 " stages/undoes hunks. 
 Plug 'airblade/vim-gitgutter'
+" A git commit browser in Vim 
+Plug 'junegunn/gv.vim'
 
 " Sessions
 " --------
@@ -219,7 +219,9 @@ nnoremap <leader><space> :nohlsearch<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 
 " Configure Airline.
+let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+
 
 " Tabs / Spaces / Backspace
 " -------------------------
@@ -533,6 +535,11 @@ nnoremap <leader>s :mksession<CR>
 if !exists("g:syntax_on")
     syntax enable
 endif
+
+" roslaunch xml syntax hilighting with inline yaml support.
+"
+" https://gist.github.com/jbohren/5964014
+autocmd BufRead,BufNewFile *.launch setfiletype roslaunch
 
 " }}}
 
