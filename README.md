@@ -29,7 +29,7 @@ $ sudo apt upgrade
 ```
 if terminator is already installed.
 
-#### tmux
+#### Tmux
 
 To get the latest version of [tmux](https://github.com/tmux/tmux/wiki),
 we use the same PPA as above and install as follows:
@@ -41,8 +41,6 @@ An alias in `.bash_aliases` maps `tmux` to this version.
 Install `xclip` in order to enable copying from the tmux buffer to the system
 buffer (clipboard). See [here](http://www.rushiagr.com/blog/2016/06/16/everything-you-need-to-know-about-tmux-copy-pasting-ubuntu/)
 
-
-
 #### Ranger
 
 To get [Ranger](http://ranger.nongnu.org/) support in vim, it is necessary to
@@ -53,27 +51,17 @@ sudo apt install ranger
 
 #### Vim
 
-In order to make use of [gundo](https://github.com/sjl/gundo.vim), we need a
-version of [Vim](https://www.vim.org/) that includes Python2 and in order to
-many other plugins, we need a version of Vim that includes Python3, so in order
-to get a version of Vim that supports both (plus a host of other extras)
-without building from source, we use the
-[pi-rho PPA](https://launchpad.net/~pi-rho/+archive/ubuntu/dev) and follow
-[this guide](https://askubuntu.com/a/775073).
-
-Run the following commands (or their equivalent):
+To install Vim 8.0+ in Ubuntu 16.04 without compiling from source, we use a PPA:
 ```bash
-# Purge other vim versions
-$ sudo apt-get remove --purge vim vim-runtime vim-gnome vim-tiny vim-gui-common
-# Add the pi-rho PPA
-$ sudo add-apt-repository -y ppa:pi-rho/dev
+$ sudo add-apt-repository ppa:jonathonf/vim
 $ sudo apt update
-# Check the available pi-rho version using this command
-$ sudo apt-cache policy vim-gtk
-# Run (something like) the following to install
-$ sudo apt install libruby # Add Ruby support as a bonus
-$ sudo apt install libperl-dev # Add Perl support as a bonus
-$ sudo apt install vim-common=2:8.0.0134-1ubuntu1~ppa1~x vim-gui-common=2:8.0.0134-1ubuntu1~ppa1~x vim-runtime=2:8.0.0134-1ubuntu1~ppa1~x vim-gtk=2:8.0.0134-1ubuntu1~ppa1~x
+$ sudo apt install vim vim-gtk
+```
+In order to use the [vim-ros](https://github.com/taketwo/vim-ros) plugin,
+a version of vim compiled with Python2 support is required. This can be
+installed separately:
+```bash
+$ sudo apt install vim-nox vim-nox-py2
 ```
 
 #### Python, Pip, Anaconda, Etc.
