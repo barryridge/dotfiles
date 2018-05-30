@@ -160,6 +160,11 @@ endif
 " A vim plugin that provides support for writing LaTeX documents.
 Plug 'lervag/vimtex'
 
+" Org
+" ---
+" Personal Wiki for Vim
+Plug 'vimwiki/vimwiki'
+
 " Deinitialize vim-plug
 call plug#end()
 
@@ -223,8 +228,11 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
 
-" Tabs / Spaces / Backspace
-" -------------------------
+" Indentation
+" -----------
+" Not strictly necessary, but good to have when working with plaintext. 
+set autoindent
+
 " Number of visual spaces per tab.
 " See: https://www.reddit.com/r/vim/wiki/tabstop
 set tabstop=8
@@ -483,7 +491,7 @@ nnoremap <leader>r :<C-U>RangerChooser<CR>
 " 
 " This both turns on filetype detection and allows loading of
 " language specific indentation files based on that detection.
-filetype indent on
+filetype plugin indent on
 
 " ROS launch files
 autocmd FileType launch setlocal shiftwidth=2
@@ -530,6 +538,9 @@ nnoremap <leader>s :mksession<CR>
 
 " Syntax / Lint {{{
 "------------------------------------------------------------------------------
+" May be required by vimwiki (thus making next conditional redundant)
+syntax on
+
 " Enable syntax highlighting.
 " See: https://stackoverflow.com/a/33380495
 if !exists("g:syntax_on")
@@ -565,6 +576,13 @@ let g:UltiSnipsEditSplit="vertical"
 " -----------------------------------------------------------------------------
 " Set vimtex pdf viewer to mupdf.
 let g:vimtex_view_method = 'mupdf'
+
+" }}}
+
+" Org {{{
+" -----------------------------------------------------------------------------
+" Set vimwiki location
+let g:vimwiki_list = [{'path': '~/Sync/vimwiki/'}]
 
 " }}}
 
