@@ -82,6 +82,26 @@ To set up task syncing using the
 [free taskcinc.com taskserver service](https://freecinc.com), follow the
 instructions in `~/Sync/taskwarrior/freeinc.com/`.
 
+#### Ruby on Rails
+
+Follow the guide [here](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-16-04)
+to install [Ruby on Rails](https://rubyonrails.org/) using
+[rbenv](https://github.com/rbenv/rbenv).
+
+[rbenv](https://github.com/rbenv/rbenv) and
+[ruby-build](https://github.com/rbenv/ruby-build) are set to auto-install from
+`.bashrc`.
+
+After that, ruby may be installed as follows:
+```bash
+$ rbenv install 2.5.0
+$ rbenv global 2.5.0
+```
+And rails may be installed with:
+```bash
+$ gem install rails
+```
+
 #### Vim
 
 To install Vim 8.0+ in Ubuntu 16.04 without compiling from source, we use a PPA:
@@ -96,6 +116,14 @@ installed separately:
 ```bash
 $ sudo apt install vim-nox vim-nox-py2
 ```
+
+##### vimwiki_markdown
+
+To use [vimwiki](https://github.com/vimwiki/vimwiki) with
+[Markdown](https://en.wikipedia.org/wiki/Markdown) and be able to export to
+HTML, we make use of the
+[vimwiki_markdown](https://github.com/patrickdavey/vimwiki_markdown) package.
+
 
 #### Python, Pip, Anaconda, Etc.
 

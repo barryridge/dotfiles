@@ -116,6 +116,20 @@ if [ ! -d $HOME/.tmux/plugins/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
+# Auto-install rbenv 
+if [ ! -d $HOME/.rbenv ]; then
+  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+fi
+
+# Source rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# Auto-install ruby-build
+if [ ! -d $HOME/.rbenv/plugins/ruby-build ]; then
+  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+fi
+
 # FZF & RipGrep
 # See: http://owen.cymru/fzf-ripgrep-navigate-with-bash-faster-than-ever-before/
 # Hints:

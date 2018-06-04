@@ -62,6 +62,9 @@ Plug 'mbbill/undotree'
 " ansi escape sequences concealed, but highlighted as specified (conceal)
 " (adds color support in charts for taskwiki)
 Plug 'powerman/vim-plugin-AnsiEsc'
+" Please Vim, stop with these swap file messages. Just switch to the correct
+" window!
+Plug 'gioele/vim-autoswap'
 
 " Colors
 " ------
@@ -331,6 +334,12 @@ set foldmethod=indent
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>eb :vsp ~/.bashrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" Swap Files
+" ----------
+" Set up vim-autoswap
+set title titlestring=
+let g:autoswap_detect_tmux = 1
 
 " GUI
 " ---
@@ -603,7 +612,10 @@ let g:vimtex_view_method = 'mupdf'
 " Org {{{
 " -----------------------------------------------------------------------------
 " Set vimwiki location
-let g:vimwiki_list = [{'path': '~/Sync/vimwiki/'}]
+let g:vimwiki_list = [{'path': '~/Sync/vimwiki', 'template_path': '~/Sync/vimwiki/templates/',
+          \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
+          \ 'path_html': '~/Sync/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
+          \ 'template_ext': '.tpl'}]
 
 " }}}
 
