@@ -59,6 +59,9 @@ Plug 'vim-airline/vim-airline-themes'
 " The ultimate undo history visualizer for VIM
 " Hint: '<leader>u' to open (see leader bindings below).
 Plug 'mbbill/undotree'
+" ansi escape sequences concealed, but highlighted as specified (conceal)
+" (adds color support in charts for taskwiki)
+Plug 'powerman/vim-plugin-AnsiEsc'
 
 " Colors
 " ------
@@ -138,6 +141,12 @@ Plug 'SirVer/ultisnips'
 " vim-snipmate default snippets
 Plug 'honza/vim-snippets'
 
+" Tags
+" ----
+" Vim plugin that displays tags in a window, ordered by scope
+" (provides taskwiki file navigation)
+Plug 'majutsushi/tagbar'
+
 " LSP / Autocomplete
 " ------------------
 " async language server protocol plugin for vim and neovim 
@@ -164,6 +173,11 @@ Plug 'lervag/vimtex'
 " ---
 " Personal Wiki for Vim
 Plug 'vimwiki/vimwiki'
+" Proper project management with Taskwarrior in vim. 
+Plug 'tbabej/taskwiki'
+" vim interface for taskwarrior 
+" (enables grid view in taskwiki)
+Plug 'blindFS/vim-taskwarrior'
 
 " Deinitialize vim-plug
 call plug#end()
@@ -564,6 +578,13 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+" }}}
+
+" Tags {{{
+" -----------------------------------------------------------------------------
+" Open tagbar with F8 key.
+nmap <F8> :TagbarToggle<CR>
 
 " }}}
 

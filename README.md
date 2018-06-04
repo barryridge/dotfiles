@@ -49,6 +49,39 @@ install Ranger:
 sudo apt install ranger
 ```
 
+#### Ctags
+
+In order to use [tagbar](https://github.com/majutsushi/tagbar) for
+[taskwiki](https://github.com/tbabej/taskwiki), a version of `ctags` needs
+to be installed.  Follow the installation instructions for
+[universal-ctags](https://github.com/universal-ctags/ctags):
+```bash
+$ git clone https://github.com/universal-ctags/ctags
+$ cd ctags
+$ ./autogen.sh
+$ ./configure
+$ make -j
+$ sudo make install
+```
+
+#### Taskwarrior
+
+To install [Taskwarrior](https://taskwarrior.org):
+
+```bash
+$ sudo apt install taskwarrior
+```
+To install [tasklib](https://github.com/tbabej/tasklib/tree/develop), a Python library for Taskwarrior:
+
+```bash
+pip2 install --user --upgrade git+git://github.com/tbabej/tasklib@develop
+pip3 install --user --upgrade git+git://github.com/tbabej/tasklib@develop
+```
+
+To set up task syncing using the
+[free taskcinc.com taskserver service](https://freecinc.com), follow the
+instructions in `~/Sync/taskwarrior/freeinc.com/`.
+
 #### Vim
 
 To install Vim 8.0+ in Ubuntu 16.04 without compiling from source, we use a PPA:
