@@ -177,7 +177,9 @@ Plug 'lervag/vimtex'
 " Personal Wiki for Vim
 Plug 'vimwiki/vimwiki'
 " Proper project management with Taskwarrior in vim. 
-Plug 'tbabej/taskwiki'
+" Plug 'tbabej/taskwiki'
+" For now, we use this fork to get Markdown syntax working properly.
+Plug 'DancingQuanta/taskwiki', { 'branch': 'extra-syntaxes'}
 " vim interface for taskwarrior 
 " (enables grid view in taskwiki)
 Plug 'blindFS/vim-taskwarrior'
@@ -611,11 +613,13 @@ let g:vimtex_view_method = 'mupdf'
 
 " Org {{{
 " -----------------------------------------------------------------------------
-" Set vimwiki location
+" Set up vimwiki location + markdown processing
 let g:vimwiki_list = [{'path': '~/Sync/vimwiki', 'template_path': '~/Sync/vimwiki/templates/',
           \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
           \ 'path_html': '~/Sync/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
           \ 'template_ext': '.tpl'}]
+" Set up taskwiki markdown syntax
+let g:taskwiki_syntax = 'markdown'
 
 " }}}
 

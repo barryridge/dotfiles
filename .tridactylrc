@@ -30,7 +30,7 @@ js tri.browserBg.runtime.getPlatformInfo().then(os=>{const profiledir = os.os=="
 
 " Sane hinting mode
 set hintfiltermode vimperator-reflow
-" set hintchars 4327895610
+set hintchars 4327895610
 
 " Make Tridactyl work on more sites at the expense of some security
 set csp clobber
