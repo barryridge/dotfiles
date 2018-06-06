@@ -102,6 +102,20 @@ And rails may be installed with:
 $ gem install rails
 ```
 
+#### Node.js
+
+Follow the guide [here](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-16-04)
+to install node.js using [nvm](https://github.com/creationix/nvm):
+```bash
+$ curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh -o install_nvm.sh
+$ bash install_nvm.sh
+$ source ~/.bashrc
+# List currently available node versions
+$ nvm ls-remote
+$ nvm install 8.11.2
+$ nvm use 8.11.2
+```
+
 #### Vim
 
 To install Vim 8.0+ in Ubuntu 16.04 without compiling from source, we use a PPA:
@@ -123,6 +137,14 @@ To use [vimwiki](https://github.com/vimwiki/vimwiki) with
 [Markdown](https://en.wikipedia.org/wiki/Markdown) and be able to export to
 HTML, we make use of the
 [vimwiki_markdown](https://github.com/patrickdavey/vimwiki_markdown) package.
+
+#### vim-instant-markdown
+
+To install [instant-markdown](https://github.com/suan/vim-instant-markdown),
+we need to run:
+```bash
+$ npm -g install instant-markdown-d
+```
 
 
 #### Python, Pip, Anaconda, Etc.

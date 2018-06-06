@@ -136,6 +136,8 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'w0rp/ale'
 " Markdown Vim Mode
 Plug 'plasticboy/vim-markdown'
+" pandoc markdown syntax, to be installed alongside vim-pandoc 
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 " Snippets
 " --------
@@ -171,6 +173,16 @@ if has('python')
 endif
 " A vim plugin that provides support for writing LaTeX documents.
 Plug 'lervag/vimtex'
+" Instant Markdown previews from VIm!
+Plug 'suan/vim-instant-markdown'
+" Real-time markdown preview plugin for vim 
+Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/markdown-preview.vim'
+" pandoc integration and utilities for vim
+Plug 'vim-pandoc/vim-pandoc'
+" Handles vim-pandoc's integration with third-party plugins 
+Plug 'vim-pandoc/vim-pandoc-after'
+
 
 " Org
 " ---
@@ -608,6 +620,11 @@ nmap <F8> :TagbarToggle<CR>
 " -----------------------------------------------------------------------------
 " Set vimtex pdf viewer to mupdf.
 let g:vimtex_view_method = 'mupdf'
+" Disable instant-markdown autostart and setup leader binding
+let g:instant_markdown_autostart = 0
+map <leader>md :InstantMarkdownPreview<CR>
+" Enable pandoc/ultisnips integration
+let g:pandoc#after#modules#enabled = ["ultisnips"]
 
 " }}}
 
@@ -618,6 +635,9 @@ let g:vimwiki_list = [{'path': '~/Sync/vimwiki', 'template_path': '~/Sync/vimwik
           \ 'template_default': 'default', 'syntax': 'markdown', 'ext': '.md',
           \ 'path_html': '~/Sync/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown',
           \ 'template_ext': '.tpl'}]
+" Stop vimwiki filetype associations for other markdown files by disabling the
+" creation of temporary wikis.
+let g:vimwiki_global_ext = 0
 " Set up taskwiki markdown syntax
 let g:taskwiki_syntax = 'markdown'
 
