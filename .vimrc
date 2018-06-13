@@ -39,6 +39,11 @@ if !empty(glob("~/.fzf/bin/fzf"))
     endif
 endif
 
+" Create cache path for citation.vim
+if empty(glob("~/.vim/citation_cache_path"))
+    silent !mkdir ~/.vim/citation_cache_path
+endif
+
 " }}}
 
 " Plugins {{{
@@ -182,7 +187,12 @@ Plug 'iamcco/markdown-preview.vim'
 Plug 'vim-pandoc/vim-pandoc'
 " Handles vim-pandoc's integration with third-party plugins 
 Plug 'vim-pandoc/vim-pandoc-after'
-
+" Unite and create user interfaces
+Plug 'Shougo/unite.vim'
+" Dark powered asynchronous unite all interfaces for Neovim/Vim8
+" Plug 'Shougo/denite.nvim'
+" Zotero and bibtex citations for Vim
+Plug 'rafaqz/citation.vim'
 
 " Org
 " ---
@@ -334,8 +344,6 @@ set foldenable
 set foldlevelstart=10
 " 10 nested fold max.
 set foldnestmax=10
-" Space open/closes folds.
-nnoremap <space> za
 " Fold based on indent level.
 "
 " Other acceptable values are marker, manual, expr, syntax, diff.
@@ -625,6 +633,39 @@ let g:instant_markdown_autostart = 0
 map <leader>md :InstantMarkdownPreview<CR>
 " Enable pandoc/ultisnips integration
 let g:pandoc#after#modules#enabled = ["ultisnips"]
+
+" Set a unite.vim/denite.nvim leader
+" nmap u [unite] nnoremap [unite] 
+nmap <space> [unite]
+nnoremap [unite] <nop>
+
+" Set up citation.vim
+let g:citation_vim_mode="zotero"
+let g:citation_vim_zotero_path="~/Zotero"
+let g:citation_vim_zotero_version=5
+let g:citation_vim_cache_path='~/.vim/citation_cache_path'
+let g:citation_vim_outer_prefix="["
+let g:citation_vim_inner_prefix="@"
+let g:citation_vim_suffix="]"
+" To insert a citation: 
+nnoremap <silent>[unite]c       :<C-u>Unite -buffer-name=citation-start-insert -default-action=append      citation/key<cr>
+" To immediately open a file from a citation under the cursor:
+nnoremap <silent>[unite]co :<C-u>Unite -input=<C-R><C-W> -default-action=start -force-immediately citation/file<cr>
+" Or open a url from a citation under the cursor:
+nnoremap <silent><leader>cu :<C-u>Unite -input=<C-R><C-W> -default-action=start -force-immediately citation/url<cr>
+" To browse the file folder from a citation under the cursor:
+nnoremap <silent>[unite]cf :<C-u>Unite -input=<C-R><C-W> -default-action=file -force-immediately citation/file<cr>
+" To view all citation information from a citation under the cursor:
+nnoremap <silent>[unite]ci :<C-u>Unite -input=<C-R><C-W> -default-action=preview -force-immediately citation/combined<cr>
+" To preview, append, yank any other citation data you want from unite:
+nnoremap <silent>[unite]cp :<C-u>Unite -default-action=yank citation/your_source_here<cr>
+" Search for the word under the cursor:
+nnoremap <silent>[unite]cs :<C-u>Unite  -default-action=yank  citation/key:<C-R><C-W><cr>
+" Search for selected words in visual mode (notice that spaces have to be
+" escaped:
+vnoremap <silent>[unite]cs :<C-u>exec "Unite  -default-action=start citation/key:" . escape(@*,' ') <cr>
+" Type search terms in the prompt:
+nnoremap <silent>[unite]cx :<C-u>exec "Unite  -default-action=start citation/key:" . escape(input('Search Key : '),' ') <cr>
 
 " }}}
 
