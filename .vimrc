@@ -8,6 +8,8 @@
 " various sources over the years and I no longer recall their precise origins.
 " Credit has been preserved wherever possible. Much can be attributed to Doug
 " Black's guide: https://dougblack.io/words/a-good-vimrc.html
+"
+" Resources: https://www.reddit.com/r/vim/wiki/vimrctips
 "==============================================================================
 
 " Initialization {{{
@@ -441,8 +443,11 @@ if has("gui_running")
     if !exists('g:screen_size_by_vim_instance')
         let g:screen_size_by_vim_instance = 1
     endif
-    autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
-    autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif 
+    augroup GVimScreenRestore
+      autocmd!
+      autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
+      autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif 
+    augroup END
 
 endif
 
@@ -539,8 +544,11 @@ nnoremap <leader>r :<C-U>RangerChooser<CR>
 filetype plugin indent on
 
 " ROS launch files
-autocmd FileType launch setlocal shiftwidth=2
-autocmd FileType launch setlocal tabstop=2
+augroup ROSLaunchFileType
+  autocmd!
+  autocmd FileType launch setlocal shiftwidth=2
+  autocmd FileType launch setlocal tabstop=2
+augroup END
 
 " }}}
 
@@ -592,10 +600,13 @@ if !exists("g:syntax_on")
     syntax enable
 endif
 
-" roslaunch xml syntax hilighting with inline yaml support.
+" roslaunch xml syntax highlighting with inline yaml support.
 "
 " https://gist.github.com/jbohren/5964014
-autocmd BufRead,BufNewFile *.launch setfiletype roslaunch
+augroup ROSLaunchSyntax
+  autocmd!
+  autocmd BufRead,BufNewFile *.launch setfiletype roslaunch
+augroup END
 
 " }}}
 
