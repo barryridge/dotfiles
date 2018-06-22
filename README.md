@@ -145,7 +145,38 @@ we need to run:
 ```bash
 $ npm -g install instant-markdown-d
 ```
+#### Spacemacs
 
+To install [Spacemacs](http://spacemacs.org) (an "Emacs advanced Kit focused on Evil",
+with the philosophy that "The best editor is neither Emacs nor Vim, it's Emacs and Vim!"):
+
+1. Install [Emacs](https://www.gnu.org/software/emacs/) (Yes, yes, I know, I know...):
+```bash
+$ sudo apt install emacs
+```
+2. Back up any previous emacs config:
+```bash
+$ cd ~
+$ mv .emacs.d .emacs.d.bak
+$ mv .emacs .emacs.bak
+```
+3. Clone the Spacemacs repo:
+```bash
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+```
+4. Install the [Source Code Pro](https://github.com/adobe-fonts/source-code-pro) font:
+```bash
+$ curl https://gist.githubusercontent.com/lucasdavila/3875946/raw/1c100cae16a06bef154af0f290d665405b554b3b/install_source_code_pro.sh | sh
+```
+5. Launch emacs:
+```bash
+
+$ emacs
+```
+6. Restart emacs to complete the installation:
+```bash
+$ emacs
+```
 
 #### Python, Pip, Anaconda, Etc.
 
