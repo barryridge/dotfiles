@@ -150,9 +150,12 @@ $ npm -g install instant-markdown-d
 To install [Spacemacs](http://spacemacs.org) (an "Emacs advanced Kit focused on Evil",
 with the philosophy that "The best editor is neither Emacs nor Vim, it's Emacs and Vim!"):
 
-1. Install [Emacs](https://www.gnu.org/software/emacs/) (Yes, yes, I know, I know...):
+1. Install [Emacs](https://www.gnu.org/software/emacs/) (Yes, yes, I know, I know...).
+Version 25.1 can be acquired [via PPA](https://www.reddit.com/r/emacs/comments/55hnxo/best_way_to_update_on_ubuntu/d8b8jtg/):
 ```bash
-$ sudo apt install emacs
+$ sudo add-apt-repository ppa:kelleyk/emacs
+$ sudo apt-get update
+$ sudo apt-get install emacs25
 ```
 2. Back up any previous emacs config:
 ```bash
