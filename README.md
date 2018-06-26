@@ -145,6 +145,41 @@ we need to run:
 ```bash
 $ npm -g install instant-markdown-d
 ```
+
+#### Pandoc
+
+To install [pandoc](http://pandoc.org) and [pandoc-citeproc](http://pandoc.org):
+```bash
+$ sudo apt install pandoc
+$ sudo apt install pandoc-citeproc
+```
+
+#### Zotero
+
+To install [zotero](https://www.zotero.org/), follow the instructions on the website.
+
+##### Better Bib(La)TeX add-on
+
+Install the [zotero-better-bibtex](https://github.com/retorquere/zotero-better-bibtex)
+add-on: Make Zotero effective for us LaTeX holdouts.
+
+##### zotxt add-on
+
+Install the [zotxt](https://github.com/egh/zotxt) add-on: a Zotero extension for text.
+
+##### LibreOffice Plugin
+
+Install the [LibreOffice Plugin](https://www.zotero.org/support/word_processor_integration).
+
+##### RTF/ODF-Scan add-on
+
+Install the [RTF/ODF-Scan](https://zotero-odf-scan.github.io/zotero-odf-scan/) add-on:
+Bringing Zotero Citations to a Word Processor Near You.
+
+##### zotfile add-on
+
+Install the [zotfile](http://zotfile.com) add-on: Advanced PDF management for Zotero.
+
 #### Spacemacs
 
 To install [Spacemacs](http://spacemacs.org) (an "Emacs advanced Kit focused on Evil",
