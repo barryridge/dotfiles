@@ -155,7 +155,8 @@ Version 25.1 can be acquired [via PPA](https://www.reddit.com/r/emacs/comments/5
 ```bash
 $ sudo add-apt-repository ppa:kelleyk/emacs
 $ sudo apt-get update
-$ sudo apt-get install emacs25
+$ sudo apt-get install emacs26
+$ sudo update-alternatives --config emacs
 ```
 2. Back up any previous emacs config:
 ```bash
@@ -163,9 +164,12 @@ $ cd ~
 $ mv .emacs.d .emacs.d.bak
 $ mv .emacs .emacs.bak
 ```
-3. Clone the Spacemacs repo:
+3. Clone the Spacemacs repo and checkout the `develop` branch:
 ```bash
-git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+$ git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+$ cd ~/.emacs.d
+$ git checkout develop
+$ git pull --rebase
 ```
 4. Install the [Source Code Pro](https://github.com/adobe-fonts/source-code-pro) font:
 ```bash
