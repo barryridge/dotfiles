@@ -150,7 +150,8 @@ $ npm -g install instant-markdown-d
 
 To install [pandoc](http://pandoc.org) and [pandoc-citeproc](http://pandoc.org):
 ```bash
-$ sudo apt install pandoc
+$ wget https://github.com/jgm/pandoc/releases/download/2.2.1/pandoc-2.2.1-1-amd64.deb
+$ sudo dpkg -i pandoc-2.2.1-1-amd64.deb
 $ sudo apt install pandoc-citeproc
 ```
 
