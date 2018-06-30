@@ -288,3 +288,14 @@ Install [mupdf](https://mupdf.com):
 ```bash
 $ sudo apt install mupdf
 ```
+
+## Usage
+
+### Fetching Branches
+
+To fetch branches from remote, do the following:
+```bash
+$ cd .cfg
+$ git config remote.origin.fetch 'refs/heads/*:refs/heads/*'
+$ git fetch origin
+```
