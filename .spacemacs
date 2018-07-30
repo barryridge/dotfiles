@@ -328,7 +328,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   ;; Set up deft for note-taking
   (setq deft-directory "~/Sync/Notes/"
-        deft-extensions '("org" "md" "txt")
+        deft-extensions '("org" "md" "txt" "tex")
         deft-use-filename-as-title t
         deft-text-mode 'org-mode)
 
@@ -340,6 +340,10 @@ you should place your code here."
   (setq org-ref-default-bibliography '("~/Sync/Papers/references.bib")
         org-ref-pdf-directory "~/Zotero/storage"
         org-ref-bibliography-notes "~/Sync/Papers/notes.org")
+
+  ;; Add ", i r" binding for inserting references with org-ref
+  (spacemacs/set-leader-keys-for-major-mode 'latex-mode "ir" 'org-ref-helm-insert-ref-link)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ir" 'org-ref-helm-insert-ref-link)
 
   ;; Set up LaTeX layer
   (add-hook 'doc-view-mode-hook 'auto-revert-mode) ;; Full document previews
