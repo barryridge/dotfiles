@@ -156,4 +156,19 @@ fi
 export EDITOR='vim'
 
 # Add local Python binaries to PATH
-export PATH=~/.local/bin:$PATH
+# export PATH=~/.local/bin:$PATH
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# CUDA
+export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+# CUPTI
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home0/barry.ridge/.sdkman"
+[[ -s "/home0/barry.ridge/.sdkman/bin/sdkman-init.sh" ]] && source "/home0/barry.ridge/.sdkman/bin/sdkman-init.sh"
