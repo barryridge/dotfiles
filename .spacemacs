@@ -30,10 +30,12 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(yaml
+   '(octave
+     yaml
      html
      ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
+     
+;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
@@ -45,12 +47,16 @@ values."
      emacs-lisp
      evil-commentary
      git
+     google-calendar
      ipython-notebook
+     latex
      markdown
      org
      (org :variables
           org-enable-github-support t
-          org-enable-reveal-js-support t)
+          org-enable-reveal-js-support t
+          org-want-todo-bindings t
+          org-enable-org-journal-support t)
      pandoc
      python
      (shell :variables
@@ -68,6 +74,7 @@ values."
    dotspacemacs-additional-packages
    '(
      gruvbox-theme
+     password-store
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -323,20 +330,71 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; Set up org-mode
+  (require 'org)
+  (setq org-hide-emphasis-markers t)
+  (setq org-directory "~/Sync/Notes/")
+  (setq org-default-notes-file (concat org-directory "/notes.org"))
+  (with-eval-after-load 'org (setq org-agenda-files
+                                   '("~/Sync/Notes/")))
+
+  ; Log done state in TODOs
+  (setq org-log-done t)
+
+  ; Set up org-capture tasks template
+  (setq org-capture-templates
+        `(("t" "Task" entry (file+headline "~/Sync/Notes/notes.org" "Tasks")
+           "** TODO %^{Task} %?")))
+
   ;; Set up deft for note-taking
   (setq deft-directory "~/Sync/Notes/"
-        deft-extensions '("org" "md" "txt")
+        deft-extensions '("org" "md" "txt" "tex")
         deft-use-filename-as-title t
         deft-text-mode 'org-mode)
 
-  ;; Set up org-mode for note-taking
-  (with-eval-after-load 'org (setq org-agenda-files
-                                   '("~/Sync/Notes/")))
+  ;; Set up org-mode for journaling
+  (setq org-journal-dir "~/Sync/Journal/")
+  (setq org-journal-date-prefix "#+TITLE: ")
+  (setq org-journal-date-format "%A, %B %e %Y")
+  (setq org-journal-time-prefix "* ")
+  (setq org-journal-time-format "%H:%M ")
+
+  ;; Set up Google Calendar
+  (setq org-gcal-client-id (password-store-get "Secrets/org-gcal-client-id")
+        org-gcal-client-secret (password-store-get "Secrets/org-gcal-client-secret"))
+
+  (setq org-gcal-file-alist '(("barry.ridge@gmail.com" . "~/Sync/Calendars/barry_ridge.org")))
+
+  (add-to-list 'org-agenda-files "~/Sync/Calendars/barry_ridge.org")
+
+  ;; Set up calfw month
+  (setq calendar-month-name-array
+        ["January" "February" "March"     "April"   "May"      "June"
+         "July"    "August"   "September" "October" "November" "December"])
+
+  ;; Set up calfw Week days
+  (setq calendar-day-name-array
+        ["Sunday" "Monday" "Tuesday" "Wednesday" "Thursday" "Friday" "Saturday"])
+
+  ;; Set up calfw first day of the week
+  (setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
+
+  ;; Set up calfw org-capture template
+  (setq cfw:org-capture-template '("s" "Schedule an event" entry
+                                   (file "~/Sync/Calendars/barry_ridge.org")
+                                   "* %^{Description}\n%^{LOCATION}p\n%(cfw:org-capture-day)\n%?"))
 
   ;; Set up org-ref
   (setq org-ref-default-bibliography '("~/Sync/Papers/references.bib")
         org-ref-pdf-directory "~/Zotero/storage"
         org-ref-bibliography-notes "~/Sync/Papers/notes.org")
+
+  ;; Add ", i r" binding for inserting references with org-ref
+  (spacemacs/set-leader-keys-for-major-mode 'latex-mode "ir" 'org-ref-helm-insert-ref-link)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ir" 'org-ref-helm-insert-ref-link)
+
+  ;; Set up LaTeX layer
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode) ;; Full document previews
 
   ;; Set up helm-bibtex/bibtex-completion
   (setq bibtex-completion-bibliography "~/Sync/Papers/references.bib")
@@ -396,7 +454,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (helm-git-grep doom-modeline eldoc-eval shrink-path web-mode tagedit slim-mode scss-mode sass-mode pug-mode pandoc-mode ox-pandoc ht helm-css-scss haml-mode emmet-mode deft company-web web-completion-data ein skewer-mode request-deferred websocket deferred js2-mode simple-httpd org-ref pdf-tools key-chord ivy helm-bibtex biblio ox-reveal tablist parsebib biblio-core hy-mode company-anaconda yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic evil-magit orgit magit-gitflow magit git-gutter-fringe+ git-gutter+ magit-popup git-commit ghub with-editor zenburn-theme zen-and-art-theme xterm-color ws-butler winum white-sand-theme which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle shell-pop seti-theme reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox organic-green-theme org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe gh-md gandalf-theme fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump dracula-theme django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-statistics column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme bracketed-paste birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (org-gcal calfw-org calfw web-mode tagedit slim-mode scss-mode sass-mode pug-mode pandoc-mode ox-pandoc ht helm-css-scss haml-mode emmet-mode deft company-web web-completion-data ein skewer-mode request-deferred websocket deferred js2-mode simple-httpd org-ref pdf-tools key-chord ivy helm-bibtex biblio ox-reveal tablist parsebib biblio-core hy-mode company-anaconda yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic evil-magit orgit magit-gitflow magit git-gutter-fringe+ git-gutter+ magit-popup git-commit ghub with-editor zenburn-theme zen-and-art-theme xterm-color ws-butler winum white-sand-theme which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle shell-pop seti-theme reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox organic-green-theme org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe gh-md gandalf-theme fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump dracula-theme django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-statistics column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme bracketed-paste birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

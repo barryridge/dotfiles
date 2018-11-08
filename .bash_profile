@@ -12,3 +12,5 @@ FDK_EXE="/home0/barry.ridge/bin/FDK/Tools/linux"
 PATH=${PATH}:"/home0/barry.ridge/bin/FDK/Tools/linux"
 export PATH
 export FDK_EXE
+
+export GPGKEY=14F8AC6310DE4A1A
