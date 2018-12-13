@@ -156,8 +156,10 @@ fi
 export EDITOR='vim'
 
 # Add local Python binaries to PATH
-<<<<<<< HEAD
-# export PATH=~/.local/bin:$PATH
+export PATH=~/.local/bin:$PATH
+
+# Add user bin folder to PATH
+export PATH=~/bin:$PATH
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -173,6 +175,3 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home0/barry.ridge/.sdkman"
 [[ -s "/home0/barry.ridge/.sdkman/bin/sdkman-init.sh" ]] && source "/home0/barry.ridge/.sdkman/bin/sdkman-init.sh"
-=======
-export PATH=~/.local/bin:$PATH
->>>>>>> origin/pantar
