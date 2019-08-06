@@ -14,3 +14,11 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # Map `tmux` to `tmux-next`
 alias tmux='env TERM=screen-256color /usr/bin/tmux-next'
+
+# kitty icat - Display images in the terminal
+# See: https://sw.kovidgoyal.net/kitty/kittens/icat.html
+alias icat="kitty +kitten icat"
+
+# kitty diff - A fast side-by-side diff tool with syntax highlighting and images
+# See: https://sw.kovidgoyal.net/kitty/kittens/diff.html
+alias d="kitty +kitten diff"
