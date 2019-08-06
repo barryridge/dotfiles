@@ -66,6 +66,7 @@ set theme dark
 "
 " Set search engine
 "
+" set searchengine searx.me
 set searchengine duckduckgo
 
 
