@@ -157,3 +157,18 @@ export EDITOR='vim'
 
 # Add local Python binaries to PATH
 export PATH=~/.local/bin:$PATH
+
+# Set up kitty completion
+source <(kitty + complete setup bash)
+
+# Set up ROS
+export ROS_MASTER_URI=http://localhost:11311
+export ROS_IP=localhost
+export ROS_HOSTNAME=localhost
+# export ROS_MASTER_URI=http://10.186.109.40:11311 # Temporary DHCP IP for localhost
+# export ROS_IP=10.186.109.40
+# export ROS_HOSTNAME=10.186.109.40
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
