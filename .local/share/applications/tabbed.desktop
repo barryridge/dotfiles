@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=Zathura Tabbed
+Name=Tabbed Zathura
 Comment=mupdf + zathura + tabbed
 Exec=tabbed
 Terminal=false
