@@ -1,6 +1,15 @@
 [global_config]
   title_font = Latin Modern Sans Quotation Bold Oblique 11
 [keybindings]
+[profiles]
+  [[default]]
+    background_color = "#2e3436"
+    background_darkness = 0.95
+    background_type = transparent
+    cursor_color = "#839496"
+    font = DejaVu Sans Mono 10
+    foreground_color = "#ffffff"
+    use_system_font = False
 [layouts]
   [[default]]
     [[[child1]]]
@@ -11,12 +20,3 @@
       parent = ""
       type = Window
 [plugins]
-[profiles]
-  [[default]]
-    background_color = "#2e3436"
-    background_darkness = 0.95
-    background_type = transparent
-    cursor_color = "#839496"
-    font = DejaVu Sans Mono 10
-    foreground_color = "#ffffff"
-    use_system_font = False
