@@ -30,7 +30,11 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(lua
+   '(markdown
+     markdown
+     javascript
+     ruby
+     lua
      octave
      yaml
      html
@@ -47,6 +51,7 @@ values."
      emacs-lisp
      evil-commentary
      git
+     github
      google-calendar
      ipython-notebook
      latex
@@ -60,13 +65,14 @@ values."
      pandoc
      pdf
      python
+     (ranger :variables
+              ranger-show-preview t)
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
      spell-checking
      syntax-checking
      themes-megapack
-     treemacs
      version-control
      )
    ;; List of additional packages that will be installed without being
@@ -75,10 +81,12 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
+     anki-editor
      gruvbox-theme
-     password-store
+     org-drill
      org-gcal
-     magic-latex-buffer
+     password-store
+     zotxt
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -158,10 +166,10 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 18
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 2)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -436,15 +444,23 @@ you should place your code here."
   (spacemacs/set-leader-keys-for-major-mode 'latex-mode "ir" 'org-ref-helm-insert-ref-link)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ir" 'org-ref-helm-insert-ref-link)
 
-  ;; Add ", i b" binding for inserting a bibliography with org-ref
-  (spacemacs/set-leader-keys-for-major-mode 'latex-mode "ib" 'org-ref-insert-bibliography-link)
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ib" 'org-ref-insert-bibliography-link)
-
   ;; Set up LaTeX layer
   (add-hook 'doc-view-mode-hook 'auto-revert-mode) ;; Full document previews
+  ;; Build
   ;; (setq org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f"))
   (setq org-latex-pdf-process
         '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"))
+  ;; SyncTeX
+  (setq TeX-source-correlate-mode t)
+  (setq TeX-source-correlate-start-server t)
+  (setq TeX-source-correlate-method 'synctex)
+  ;; Viewers
+  (setq TeX-view-program-list
+        '(("ZathuraTabbed"
+           ("zathura-tabbed %o"
+            (mode-io-correlate
+             " --synctex-forward %n:0:%b -x \"emacsclient +%{line} %{input}\"")))))
+  (setq TeX-view-program-selection '((output-pdf "ZathuraTabbed")))
 
   ;; Set up helm-bibtex/bibtex-completion
   (setq bibtex-completion-bibliography "~/Sync/Papers/references.bib")
@@ -466,9 +482,45 @@ you should place your code here."
       (message "No PDF found for %s" key))))
 
   (setq org-ref-open-pdf-function 'my/org-ref-open-pdf-at-point)
-  )
 
-;; Do not write anything past this comment. This is where Emacs will
+  ;; Set up magithub
+  ;; Add custom forge (GitHub, GitLab, etc.) hosts
+  (with-eval-after-load 'forge
+    (add-to-list 'forge-alist '("repo.ijs.si" "repo.ijs.si/api/v4" "repo.ijs.si" forge-gitlab-repository)))
+  ;; Use the Unix password store for forge authentication
+  ;; (setq auth-sources '(password-store))
+  ;; Use a GPG-encrypted .authinfo file for forge authentication
+  (setq auth-sources '("~/.authinfo.gpg"))
+
+  ;; Fix magit/ghub issue #81
+  ;; https://github.com/magit/ghub/issues/81
+  (setq ghub-use-workaround-for-emacs-bug 'force)
+
+  ;; Enable magithub online mode
+  ;; (magit-set "true" "--global" "magithub.online")
+  ;; (magit-set "true" "--global" "magithub.status.includeStatusHeader")
+  ;; (magit-set "true" "--global" "magithub.status.includePullRequestsSection")
+  ;; (magit-set "true" "--global" "magithub.status.includeIssuesSection")
+
+  ;; Set up org-mode image pasting from the clipboard
+  ;; See: https://stackoverflow.com/questions/17435995/paste-an-image-on-clipboard-to-emacs-org-mode-file-without-saving-it
+  ;;      https://orgmode.org/worg/org-hacks.html
+  (defun my-org-screenshot ()
+    "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+    (interactive)
+    (setq filename
+          (concat
+           (make-temp-name
+            (concat (buffer-file-name)
+                    "_"
+                    (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+    (call-process "import" nil nil nil filename)
+    (insert (concat "[[" filename "]]"))
+    (org-display-inline-images))
+)
+
+;; do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -504,7 +556,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (helm-gtags ggtags counsel-gtags company-lua lua-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode pandoc-mode ox-pandoc ht helm-css-scss haml-mode emmet-mode deft company-web web-completion-data ein skewer-mode request-deferred websocket deferred js2-mode simple-httpd org-ref pdf-tools key-chord ivy helm-bibtex biblio ox-reveal tablist parsebib biblio-core hy-mode company-anaconda yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic evil-magit orgit magit-gitflow magit git-gutter-fringe+ git-gutter+ magit-popup git-commit ghub with-editor zenburn-theme zen-and-art-theme xterm-color ws-butler winum white-sand-theme which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle shell-pop seti-theme reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox organic-green-theme org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe gh-md gandalf-theme fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump dracula-theme django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-statistics column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme bracketed-paste birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (anki-editor tern livid-mode js2-refactor multiple-cursors js-doc import-js grizzl add-node-modules-path web-mode tagedit slim-mode scss-mode sass-mode pug-mode pandoc-mode ox-pandoc ht helm-css-scss haml-mode emmet-mode deft company-web web-completion-data ein skewer-mode request-deferred websocket deferred js2-mode simple-httpd org-ref pdf-tools key-chord ivy helm-bibtex biblio ox-reveal tablist parsebib biblio-core hy-mode company-anaconda yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode dash-functional helm-pydoc cython-mode anaconda-mode pythonic evil-magit orgit magit-gitflow magit git-gutter-fringe+ git-gutter+ magit-popup git-commit ghub with-editor zenburn-theme zen-and-art-theme xterm-color ws-butler winum white-sand-theme which-key volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle shell-pop seti-theme reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox organic-green-theme org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme madhat2r-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe gh-md gandalf-theme fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help elisp-slime-nav dumb-jump dracula-theme django-theme diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-statistics column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme bracketed-paste birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
