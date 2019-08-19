@@ -31,7 +31,6 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(markdown
-     markdown
      javascript
      ruby
      lua
@@ -73,6 +72,7 @@ values."
      spell-checking
      syntax-checking
      themes-megapack
+     treemacs
      version-control
      )
    ;; List of additional packages that will be installed without being
