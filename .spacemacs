@@ -518,6 +518,33 @@ same directory as the org-buffer and insert a link to this file."
     (call-process "import" nil nil nil filename)
     (insert (concat "[[" filename "]]"))
     (org-display-inline-images))
+
+  ;; Set up auto-completion
+  (setq-default dotspacemacs-configuration-layers '(
+    (auto-completion :variables
+                      auto-completion-return-key-behavior 'complete
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-complete-with-key-sequence "jk"
+                      auto-completion-complete-with-key-sequence-delay 0.1
+                      auto-completion-private-snippets-directory nil)
+    ))
+
+  ;; Show snippets in auto-completion popup
+  (setq-default dotspacemacs-configuration-layers
+                '((auto-completion :variables
+                                   auto-completion-enable-snippets-in-popup t)))
+
+  ;; Enable automatic docstring tooltips
+  ;; (change t to 'manual for manual, invoked via M-h)
+  (setq-default dotspacemacs-configuration-layers
+                '((auto-completion :variables
+                                   auto-completion-enable-help-tooltip t)))
+
+  ;; Sort auto-completion results by usage frequency
+  (setq-default dotspacemacs-configuration-layers
+                '((auto-completion :variables
+                                   auto-completion-enable-sort-by-usage t)))
+
 )
 
 ;; do not write anything past this comment. This is where Emacs will
