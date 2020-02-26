@@ -145,12 +145,12 @@ bind -x '"\C-p": vim $(fzf);'
 
 # Auto-install .anaconda_with_ros_wrapper.bash if anaconda3 is installed.
 # See: https://gist.github.com/StefanFabian/17fa715e783cd2be6a32cd5bbb98acd9
-if [ -d ~/anaconda3 ]; then
-    if [ ! -f ~/.anaconda_with_ros_wrapper.bash ]; then
-        wget https://gist.githubusercontent.com/StefanFabian/17fa715e783cd2be6a32cd5bbb98acd9/raw/6982a55347a047f5c6baa9a69264550dde3d7c85/.anaconda_with_ros_wrapper.bash
-    fi
-    source ~/.anaconda_with_ros_wrapper.bash
-fi
+# if [ -d ~/anaconda3 ]; then
+#     if [ ! -f ~/.anaconda_with_ros_wrapper.bash ]; then
+#         wget https://gist.githubusercontent.com/StefanFabian/17fa715e783cd2be6a32cd5bbb98acd9/raw/6982a55347a047f5c6baa9a69264550dde3d7c85/.anaconda_with_ros_wrapper.bash
+#     fi
+#     source ~/.anaconda_with_ros_wrapper.bash
+# fi
 
 # Set default editor.
 export EDITOR='vim'
@@ -169,6 +169,40 @@ export ROS_HOSTNAME=localhost
 # export ROS_IP=10.186.109.40
 # export ROS_HOSTNAME=10.186.109.40
 
+# Set up Gazebo
+# export LD_LIBRARY_PATH=/home/$USER/local/lib:$LD_LIBRARY_PATH
+# export PATH=/home/$USER/local/bin:$PATH
+# export PKG_CONFIG_PATH=/home/$USER/local/lib/pkgconfig:$PKG_CONFIG_PATH
+
+# Add python libraries to path
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/python2.7/site-packages
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/python2.7/dist-packages
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/python3.5/site-packages
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/python3.5/dist-packages
+
+# Set up V-Rep/CoppeliaSim
+# export VREP_ROOT=$HOME/V-REP_PRO_EDU_V3_6_2_Ubuntu18_04
+# export COPPELIASIM_ROOT=$HOME/V-REP_PRO_EDU_V3_6_2_Ubuntu18_04
+export COPPELIASIM_ROOT=$HOME/CoppeliaSim_Edu_V4_0_0_Ubuntu18_04
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$COPPELIASIM_ROOT
+export QT_QPA_PLATFORM_PLUGIN_PATH=$COPPELIASIM_ROOT
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/barry/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/barry/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/barry/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/barry/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
